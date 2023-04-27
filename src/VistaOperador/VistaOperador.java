@@ -35,10 +35,12 @@ public class VistaOperador extends JFrame {
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
     JPanel panelInicio = new JPanel();
     JPanel panelBlanco = new JPanel();
+    JButton botonLogin=new JButton();
     JPanel panelPedido = new JPanel();
     JPanel panelInformacion = new JPanel();
     JTextField txbuscarCliente =new JTextField();
     JButton botonBuscar;
+    JButton botonBuscCliente;
 
     //Constructor de la ventana con las propiedades de la misma
     public VistaOperador(){
@@ -62,7 +64,7 @@ public class VistaOperador extends JFrame {
         //logo de la salchica para el fondo
         JLabel logo = new JLabel("Logo");
         logo.setBounds(110, 10, 150, 150);
-        ImageIcon imgLogo = new ImageIcon("ModuloOperador/src/Imagenes/logoPerrito.png");// se le pone icono a boton
+        ImageIcon imgLogo = new ImageIcon("src/Imagenes/logoPerrito.png");// se le pone icono a boton
         Icon ilogo = new ImageIcon(imgLogo.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(ilogo);
         panelInicio.add(logo);
@@ -90,37 +92,21 @@ public class VistaOperador extends JFrame {
         String contraseñaa= validarContraseña();
 
         //boton que da acceso al modulo en el login//TEMPORAL
-        JButton botonLogin=new JButton();
         botonLogin.setBounds(140, 420, 100, 50);
-        ImageIcon imgR= new ImageIcon("ModuloOperador/src/Imagenes/INGRESAR.png");// se le pone icono a boton
+        ImageIcon imgR= new ImageIcon("src/Imagenes/INGRESAR.png");// se le pone icono a boton
         Icon i= new ImageIcon(imgR.getImage().getScaledInstance(botonLogin.getWidth(), botonLogin.getHeight(), Image.SCALE_DEFAULT));
         botonLogin.setIcon(i);
         botonLogin.setLayout(null);
         botonLogin.setOpaque(true);
         botonLogin.setBorderPainted(false);
-        ImageIcon imgadmin= new ImageIcon("ModuloOperador/src/Imagenes/INGRESAR2.png");// se le pone icono a boton
+        ImageIcon imgadmin= new ImageIcon("src/Imagenes/INGRESAR2.png");// se le pone icono a boton
         Icon iconAdmin= new ImageIcon(imgadmin.getImage().getScaledInstance(botonLogin.getWidth(), botonLogin.getHeight(), Image.SCALE_DEFAULT));
         botonLogin.setRolloverIcon(iconAdmin);
         botonLogin.setBackground(Color.white);
-
-        botonLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelInicio.setVisible(false);
-                fondo.setVisible(false);
-                panelOperador();
-
-                contenedor.add(panelBlanco,Integer.valueOf(6));
-                contenedor.add(panelPedido,Integer.valueOf(7));
-                contenedor.add(panelInformacion,Integer.valueOf(7));
-                contenedor.add(botonBuscar,Integer.valueOf(7));
-
-            }
-        });
         panelInicio.add(botonLogin);
 
         //fondo del login
-        ImageIcon imagen =new ImageIcon("ModuloOperador/src/Imagenes/loginOperador.png");
+        ImageIcon imagen =new ImageIcon("src/Imagenes/loginOperador.png");
         fondo.setIcon(imagen);
         fondo.setSize(imagen.getIconWidth(), imagen.getIconHeight());
         //capas de la ventana
@@ -129,6 +115,28 @@ public class VistaOperador extends JFrame {
         this.setSize(imagen.getIconWidth(), imagen.getIconHeight());//tamaño de la imagen ajustado a la ventana
         contenedor();//llama al contenedor
 
+
+    }
+
+    public void accederLogin(boolean validacion){
+        if(validacion){
+            botonLogin.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    panelInicio.setVisible(false);
+                    fondo.setVisible(false);
+                    panelComprobarCliente();
+
+                    contenedor.add(panelBlanco,Integer.valueOf(6));
+                    contenedor.add(panelPedido,Integer.valueOf(7));
+                    contenedor.add(panelInformacion,Integer.valueOf(7));
+                    contenedor.add(botonBuscar,Integer.valueOf(7));
+
+                }
+            });
+        }else{
+            JOptionPane.showInputDialog("NO ES POSIBLE ACCEDER- ERROR DE USUARIO Y/0 CONTRASEÑA");
+        }
 
     }
 
@@ -150,6 +158,105 @@ public class VistaOperador extends JFrame {
         panelInicio.add(txcontraseña);//se añade al panel
         String contraseña=txcontraseña.getText();//SE TOMA EL VALOR QUE SE DIGITA
         return contraseña;
+    }
+
+    JPanel panelBusqueda=new JPanel();
+    public void panelComprobarCliente(){
+        //Panel que tendrá las etiquetas y botones
+        //fondo blanco del panel
+        panelBlanco.setLayout(null);
+        panelBlanco.setVisible(true);
+        panelBlanco.setOpaque(true);
+        panelBlanco.setBounds(0, 0, 1400, 800);
+        panelBlanco.setBackground(Color.white);
+
+        panelBusqueda.setLayout(null);
+        panelBusqueda.setVisible(true);
+        panelBusqueda.setOpaque(true);
+        panelBusqueda.setBounds(300, 150, 700, 400);
+        panelBusqueda.setBackground(Color.white);
+
+        String cliente= buscarClienteAntes();
+
+        JLabel operadorText = new JLabel("BUSCAR CLIENTE");
+        operadorText.setBackground(Color.black);
+        operadorText.setFont(new Font("Arial", Font.BOLD, 40));
+        operadorText.setBounds(180, 0, 600, 100);
+        panelBusqueda.add(operadorText);
+
+        botonBuscCliente=new JButton();//boton para buscar cliente
+        botonBuscCliente.setBounds(550, 400, 150, 80);
+        ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
+        Icon ibus= new ImageIcon(imgBus.getImage().getScaledInstance(botonBuscCliente.getWidth(), botonBuscCliente.getHeight(), Image.SCALE_DEFAULT));
+        botonBuscCliente.setIcon(ibus);
+        botonBuscCliente.setLayout(null);
+        botonBuscCliente.setOpaque(true);
+        botonBuscCliente.setBorderPainted(false);
+        ImageIcon imgBus2= new ImageIcon("src/Imagenes/botonBuscar2.png");// se le pone icono a boton
+        Icon ibus2= new ImageIcon(imgBus2.getImage().getScaledInstance(botonBuscCliente.getWidth(), botonBuscCliente.getHeight(), Image.SCALE_DEFAULT));
+        botonBuscCliente.setRolloverIcon(ibus2);
+        botonBuscCliente.setBackground(Color.white);
+        panelBusqueda.add(botonBuscCliente);
+
+        ImageIcon imagen =new ImageIcon("src/Imagenes/fondoLetras.png");
+        fondo.setIcon(imagen);
+        fondo.setSize(imagen.getIconWidth(), imagen.getIconHeight());
+
+
+        contenedor();
+        //contenedor.add(panelBlanco,Integer.valueOf(4));
+        contenedor.add(fondo,Integer.valueOf(4));
+        contenedor.add(panelBusqueda,Integer.valueOf(5));
+        contenedor.add(botonBuscCliente,Integer.valueOf(6));
+
+       // elegirPanelSiClienteExiste(false);
+
+
+    }
+
+    public String buscarClienteAntes(){
+        Color colorPanel=new Color(234,234,234);
+        txbuscarCliente.setBackground(colorPanel);
+        txbuscarCliente.setFont(new Font("Arial", Font.BOLD, 40));
+        txbuscarCliente.setBounds(60, 150, 600, 60);
+        String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
+        panelBusqueda.add(txbuscarCliente);
+        return telefonoCliente;//se retorna el numero telefonico
+    }
+
+    public void elegirPanelSiClienteExiste(Boolean existe){
+        if(existe){
+            botonBuscCliente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    panelBusqueda.setVisible(false);
+                    panelOperador();
+                    panelPedido.setVisible(true);
+                    panelInformacion.setVisible(true);
+                    botonBuscCliente.setVisible(false);
+                    contenedor.add(panelBlanco,Integer.valueOf(6));
+                    contenedor.add(panelPedido,Integer.valueOf(7));
+                    contenedor.add(panelInformacion,Integer.valueOf(7));
+                    contenedor.add(botonBuscar,Integer.valueOf(7));
+
+                }
+            });
+        }else{
+            botonBuscCliente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    panelBlanco.setVisible(false);
+                    botonBuscCliente.setVisible(false);
+                    fondo.setVisible(false);
+                    VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
+                    vistaOperadorDatos.panelRegistroCliente();
+                    dispose();
+
+
+                }
+            });
+        }
+
     }
 
 
@@ -192,20 +299,20 @@ public class VistaOperador extends JFrame {
 
         JLabel fondoCliente = new JLabel("Logo");//Foto de la salchicha
         fondoCliente.setBounds(100, 50, 150, 200);
-        ImageIcon imgLogo = new ImageIcon("ModuloOperador/src/Imagenes/tipoCliente.png");// se le pone icono a boton
+        ImageIcon imgLogo = new ImageIcon("src/Imagenes/tipoCliente.png");// se le pone icono a boton
         Icon ilogo = new ImageIcon(imgLogo.getImage().getScaledInstance(fondoCliente.getWidth(), fondoCliente.getHeight(), Image.SCALE_DEFAULT));
         fondoCliente.setIcon(ilogo);
         panelInformacion.add(fondoCliente);
 
         botonBuscar=new JButton();//boton para buscar cliente
         botonBuscar.setBounds(1050, 40, 150, 80);
-        ImageIcon imgBus= new ImageIcon("ModuloOperador/src/Imagenes/botonBuscar.png");// se le pone icono a boton
+        ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
         Icon ibus= new ImageIcon(imgBus.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_DEFAULT));
         botonBuscar.setIcon(ibus);
         botonBuscar.setLayout(null);
         botonBuscar.setOpaque(true);
         botonBuscar.setBorderPainted(false);
-        ImageIcon imgBus2= new ImageIcon("ModuloOperador/src/Imagenes/botonBuscar2.png");// se le pone icono a boton
+        ImageIcon imgBus2= new ImageIcon("src/Imagenes/botonBuscar2.png");// se le pone icono a boton
         Icon ibus2= new ImageIcon(imgBus2.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_DEFAULT));
         botonBuscar.setRolloverIcon(ibus2);
         botonBuscar.setBackground(Color.white);
@@ -221,13 +328,13 @@ public class VistaOperador extends JFrame {
     
         JButton botonRegistrar=new JButton(); //boton de registro
         botonRegistrar.setBounds(300, 600, 200, 100);
-        ImageIcon imgRegis= new ImageIcon("ModuloOperador/src/Imagenes/botonRegistrar.png");// se le pone icono a boton
+        ImageIcon imgRegis= new ImageIcon("src/Imagenes/botonRegistrar.png");// se le pone icono a boton
         Icon iRegis= new ImageIcon(imgRegis.getImage().getScaledInstance(botonRegistrar.getWidth(), botonRegistrar.getHeight(), Image.SCALE_DEFAULT));
         botonRegistrar.setIcon(iRegis);
         botonRegistrar.setLayout(null);
         botonRegistrar.setOpaque(true);
         botonRegistrar.setBorderPainted(false);
-        ImageIcon imgRegis2= new ImageIcon("ModuloOperador/src/Imagenes/botonRegistrar2.png");// se le pone icono a boton
+        ImageIcon imgRegis2= new ImageIcon("src/Imagenes/botonRegistrar2.png");// se le pone icono a boton
         Icon iRegis2= new ImageIcon(imgRegis2.getImage().getScaledInstance(botonRegistrar.getWidth(), botonRegistrar.getHeight(), Image.SCALE_DEFAULT));
         botonRegistrar.setRolloverIcon(iRegis2);
         botonRegistrar.setBackground(Color.white);
@@ -273,13 +380,13 @@ public class VistaOperador extends JFrame {
          */
         JButton botonIngresar=new JButton(); //boton para ingresar pedido
         botonIngresar.setBounds(500, 600, 200, 100);
-        ImageIcon imgR= new ImageIcon("ModuloOperador/src/Imagenes/btningresarPedido.png");// se le pone icono a boton
+        ImageIcon imgR= new ImageIcon("src/Imagenes/btningresarPedido.png");// se le pone icono a boton
         Icon i= new ImageIcon(imgR.getImage().getScaledInstance(botonIngresar.getWidth(), botonIngresar.getHeight(), Image.SCALE_DEFAULT));
         botonIngresar.setIcon(i);
         botonIngresar.setLayout(null);
         botonIngresar.setOpaque(true);
         botonIngresar.setBorderPainted(false);
-        ImageIcon imgadmin= new ImageIcon("ModuloOperador/src/Imagenes/btningresarPedido2.png");// se le pone icono a boton
+        ImageIcon imgadmin= new ImageIcon("src/Imagenes/btningresarPedido2.png");// se le pone icono a boton
         Icon iconAdmin= new ImageIcon(imgadmin.getImage().getScaledInstance(botonIngresar.getWidth(), botonIngresar.getHeight(), Image.SCALE_DEFAULT));
         botonIngresar.setRolloverIcon(iconAdmin);
         botonIngresar.setBackground(Color.white);
@@ -296,13 +403,13 @@ public class VistaOperador extends JFrame {
 
         JButton botonActPedido=new JButton();//boton para actualizar pedido
         botonActPedido.setBounds(700, 600, 200, 100);
-        ImageIcon imgactPedido= new ImageIcon("ModuloOperador/src/Imagenes/botonActPedido.png");// se le pone icono a boton
+        ImageIcon imgactPedido= new ImageIcon("src/Imagenes/botonActPedido.png");// se le pone icono a boton
         Icon iActPedi= new ImageIcon(imgactPedido.getImage().getScaledInstance(botonActPedido.getWidth(), botonActPedido.getHeight(), Image.SCALE_DEFAULT));
         botonActPedido.setIcon(iActPedi);
         botonActPedido.setLayout(null);
         botonActPedido.setOpaque(true);
         botonActPedido.setBorderPainted(false);
-        ImageIcon imgactPedido2= new ImageIcon("ModuloOperador/src/Imagenes/botonActPedido2.png");// se le pone icono a boton
+        ImageIcon imgactPedido2= new ImageIcon("src/Imagenes/botonActPedido2.png");// se le pone icono a boton
         Icon iActPedi2= new ImageIcon(imgactPedido2.getImage().getScaledInstance(botonActPedido.getWidth(), botonActPedido.getHeight(), Image.SCALE_DEFAULT));
         botonActPedido.setRolloverIcon(iActPedi2);
         botonActPedido.setBackground(Color.white);
@@ -319,13 +426,13 @@ public class VistaOperador extends JFrame {
 
         JButton botonActDatos=new JButton();//boton para actualizar datos
         botonActDatos.setBounds(900, 600, 200, 100);
-        ImageIcon imgdatos= new ImageIcon("ModuloOperador/src/Imagenes/botonActDatos.png");// se le pone icono a boton
+        ImageIcon imgdatos= new ImageIcon("src/Imagenes/botonActDatos.png");// se le pone icono a boton
         Icon idatos= new ImageIcon(imgdatos.getImage().getScaledInstance(botonActDatos.getWidth(), botonActDatos.getHeight(), Image.SCALE_DEFAULT));
         botonActDatos.setIcon(idatos);
         botonActDatos.setLayout(null);
         botonActDatos.setOpaque(true);
         botonActDatos.setBorderPainted(false);
-        ImageIcon imgadatos= new ImageIcon("ModuloOperador/src/Imagenes/botonActDatos2.png");// se le pone icono a boton
+        ImageIcon imgadatos= new ImageIcon("src/Imagenes/botonActDatos2.png");// se le pone icono a boton
         Icon iconDatos= new ImageIcon(imgadatos.getImage().getScaledInstance(botonActDatos.getWidth(), botonActDatos.getHeight(), Image.SCALE_DEFAULT));
         botonActDatos.setRolloverIcon(iconDatos);
         botonActDatos.setBackground(Color.white);
@@ -453,9 +560,6 @@ public class VistaOperador extends JFrame {
         }
     }
 
-    public boolean clienteEncontrado(boolean encontrado){
-        return encontrado;
-    }
 
     //contenedor de capas
     public void contenedor(){
