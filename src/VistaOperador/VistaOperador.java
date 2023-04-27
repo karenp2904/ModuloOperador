@@ -34,6 +34,7 @@ public class VistaOperador extends JFrame {
     JLabel fondo = new JLabel();//fondo
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
     JPanel panelInicio = new JPanel();
+    JPanel panelBusqueda=new JPanel();
     JPanel panelBlanco = new JPanel();
     JButton botonLogin=new JButton();
     JPanel panelPedido = new JPanel();
@@ -115,7 +116,7 @@ public class VistaOperador extends JFrame {
         this.setSize(imagen.getIconWidth(), imagen.getIconHeight());//tamaño de la imagen ajustado a la ventana
         contenedor();//llama al contenedor
 
-
+        accederLogin(true);
     }
 
     public void accederLogin(boolean validacion){
@@ -123,14 +124,14 @@ public class VistaOperador extends JFrame {
             botonLogin.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                   panelComprobarCliente();
                     panelInicio.setVisible(false);
-                    fondo.setVisible(false);
-                    panelComprobarCliente();
 
-                    contenedor.add(panelBlanco,Integer.valueOf(6));
-                    contenedor.add(panelPedido,Integer.valueOf(7));
-                    contenedor.add(panelInformacion,Integer.valueOf(7));
-                    contenedor.add(botonBuscar,Integer.valueOf(7));
+                    contenedor.add(panelBlanco,Integer.valueOf(4));
+                    contenedor.add(fondo,Integer.valueOf(5));
+                    contenedor.add(panelBusqueda,Integer.valueOf(8));
+                    contenedor.add(botonBuscCliente,Integer.valueOf(9));
+
 
                 }
             });
@@ -160,7 +161,7 @@ public class VistaOperador extends JFrame {
         return contraseña;
     }
 
-    JPanel panelBusqueda=new JPanel();
+
     public void panelComprobarCliente(){
         //Panel que tendrá las etiquetas y botones
         //fondo blanco del panel
@@ -204,12 +205,12 @@ public class VistaOperador extends JFrame {
 
 
         contenedor();
-        //contenedor.add(panelBlanco,Integer.valueOf(4));
-        contenedor.add(fondo,Integer.valueOf(4));
-        contenedor.add(panelBusqueda,Integer.valueOf(5));
-        contenedor.add(botonBuscCliente,Integer.valueOf(6));
+        contenedor.add(panelBlanco,Integer.valueOf(4));
+        contenedor.add(fondo,Integer.valueOf(5));
+        contenedor.add(panelBusqueda,Integer.valueOf(6));
+        contenedor.add(botonBuscCliente,Integer.valueOf(7));
 
-       // elegirPanelSiClienteExiste(false);
+        elegirPanelSiClienteExiste(false);
 
 
     }
@@ -234,10 +235,10 @@ public class VistaOperador extends JFrame {
                     panelPedido.setVisible(true);
                     panelInformacion.setVisible(true);
                     botonBuscCliente.setVisible(false);
-                    contenedor.add(panelBlanco,Integer.valueOf(6));
-                    contenedor.add(panelPedido,Integer.valueOf(7));
-                    contenedor.add(panelInformacion,Integer.valueOf(7));
-                    contenedor.add(botonBuscar,Integer.valueOf(7));
+                    contenedor.add(panelBlanco,Integer.valueOf(8));
+                    contenedor.add(panelPedido,Integer.valueOf(9));
+                    contenedor.add(panelInformacion,Integer.valueOf(9));
+                    contenedor.add(botonBuscar,Integer.valueOf(9));
 
                 }
             });
