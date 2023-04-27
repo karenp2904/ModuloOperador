@@ -48,7 +48,7 @@ public class ControladorOperador {
             client.actualizarPedido(vistaOperadorDatos.ingresarProducto(),vistaOperadorDatos.ingresarCodido(), vistaOperadorDatos.ingresarCantidad());
 
             //para buscar un pedido
-
+//
             vistaOperadorDatos.mostrarPedidosEncontrados(client.busquedaPedido(vistaOperadorDatos.buscarPedido()));// se muestran los pedidos encontrados en la barra de busqueda
 
             vistaOperador.accederLogin(client.validarUsuario("operador", vistaOperador.validarUsuario(), vistaOperador.validarContraseña())); // se valida el login
