@@ -48,10 +48,12 @@ public class ControladorOperador {
             client.actualizarPedido(vistaOperadorDatos.ingresarProducto(),vistaOperadorDatos.ingresarCodido(), vistaOperadorDatos.ingresarCantidad());
 
             //para buscar un pedido
-//
             vistaOperadorDatos.mostrarPedidosEncontrados(client.busquedaPedido(vistaOperadorDatos.buscarPedido()));// se muestran los pedidos encontrados en la barra de busqueda
 
+            //para la validacion del login
             vistaOperador.accederLogin(client.validarUsuario("operador", vistaOperador.validarUsuario(), vistaOperador.validarContraseña())); // se valida el login
+
+            //para verificar si hay que registrar el usuario o se muestran los datos porque ya existe
             vistaOperador.elegirPanelSiClienteExiste(client.clienteExistente(vistaOperador.buscarCliente()));//se busca al cliente si existe o no, segun su telefono y se notifica a la vista
 
             //vistaOperador.elegirPanelSiClienteExiste(true);
