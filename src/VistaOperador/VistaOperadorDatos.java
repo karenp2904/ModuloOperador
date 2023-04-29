@@ -277,6 +277,10 @@ public class VistaOperadorDatos extends JFrame {
         contenedor.add(panelCompletar,Integer.valueOf(4));
     }
 
+    public void botonBuscar(){
+
+    }
+
     //metodo para buscar pedido- autocompletar
     public String buscarPedido(){
         Color colorPanel=new Color(234,234,234);

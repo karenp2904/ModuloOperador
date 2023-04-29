@@ -32,14 +32,14 @@ public class ControladorOperador {
             vistaOperadorDatos.setVisible(false);
 
             //Aqui se conectan los datos que otorga la barra de busqueda del cliente por numero de telefono
-            ColasArray cola=  client.busquedaCliente(vistaOperador.buscarCliente());
+            ColasArray cola=  client.busquedaCliente(vistaOperador.buscarClienteAntes());
             //aparece en la vista los datos del cliente
             vistaOperador.setNombreCliente(cola.dequeue().toString());
             vistaOperador.setDireccionCliente(cola.dequeue().toString());
             vistaOperador.setTelefonoCliente(cola.dequeue().toString());
             vistaOperador.setTipoCliente(cola.dequeue().toString());
             //segun el numero de telefono registrado se muestran los pedidos frecuentes del cliente
-            vistaOperador.setPedidosCliente(client.pedidosFrecuentesCliente(vistaOperador.buscarCliente()));
+            vistaOperador.setPedidosCliente(client.pedidosFrecuentesCliente(vistaOperador.buscarClienteAntes()));
 
             //para el ingreso de pedido y del nuevo cliente
             client.registrarCliente(vistaOperadorDatos.ingresarNombre(), vistaOperadorDatos.ingresarDireccion(), vistaOperadorDatos.ingresarTelefono(), vistaOperadorDatos.ingresarTipoCliente());

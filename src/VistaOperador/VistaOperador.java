@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 public class VistaOperador extends JFrame {
     /*
@@ -42,6 +43,11 @@ public class VistaOperador extends JFrame {
     JTextField txbuscarCliente =new JTextField();
     JButton botonBuscar;
     JButton botonBuscCliente;
+
+    JButton botonRegistrar=new JButton();
+    JButton botonIngresar=new JButton();
+    JButton botonActPedido = new JButton();
+    JButton botonActDatos=new JButton();
 
     //Constructor de la ventana con las propiedades de la misma
     public VistaOperador(){
@@ -186,6 +192,7 @@ public class VistaOperador extends JFrame {
         panelBusqueda.add(operadorText);
 
         botonBuscCliente=new JButton();//boton para buscar cliente
+        botonBuscCliente.setVisible(true);
         botonBuscCliente.setBounds(550, 400, 150, 80);
         ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
         Icon ibus= new ImageIcon(imgBus.getImage().getScaledInstance(botonBuscCliente.getWidth(), botonBuscCliente.getHeight(), Image.SCALE_DEFAULT));
@@ -210,7 +217,7 @@ public class VistaOperador extends JFrame {
         contenedor.add(panelBusqueda,Integer.valueOf(6));
         contenedor.add(botonBuscCliente,Integer.valueOf(7));
 
-        elegirPanelSiClienteExiste(false);
+        elegirPanelSiClienteExiste(true);
 
 
     }
@@ -235,6 +242,7 @@ public class VistaOperador extends JFrame {
                     panelPedido.setVisible(true);
                     panelInformacion.setVisible(true);
                     botonBuscCliente.setVisible(false);
+                    panelPedido.setVisible(true);
                     contenedor.add(panelBlanco,Integer.valueOf(8));
                     contenedor.add(panelPedido,Integer.valueOf(9));
                     contenedor.add(panelInformacion,Integer.valueOf(9));
@@ -318,16 +326,30 @@ public class VistaOperador extends JFrame {
         botonBuscar.setRolloverIcon(ibus2);
         botonBuscar.setBackground(Color.white);
 
+
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelPedido.setVisible(true);
+                panelBusqueda.setVisible(true);
+                panelInformacion.setVisible(false);
+                panelPedido.setVisible(false);
+                botonBuscCliente.setVisible(true);
+                botonBuscar.setVisible(false);
+                botonActPedido.setVisible(false);
+                botonActDatos.setVisible(false);
+                botonIngresar.setVisible(false);
+                botonRegistrar.setVisible(false);
+                panelBlanco.setVisible(false);
+                panelComprobarCliente();
+                contenedor.add(panelBlanco,Integer.valueOf(4));
+                contenedor.add(fondo,Integer.valueOf(5));
+                contenedor.add(panelBusqueda,Integer.valueOf(6));
+                contenedor.add(botonBuscCliente,Integer.valueOf(7));
             }
         });
         panelBlanco.add(botonBuscar);
 
-    
-        JButton botonRegistrar=new JButton(); //boton de registro
+
         botonRegistrar.setBounds(300, 600, 200, 100);
         ImageIcon imgRegis= new ImageIcon("src/Imagenes/botonRegistrar.png");// se le pone icono a boton
         Icon iRegis= new ImageIcon(imgRegis.getImage().getScaledInstance(botonRegistrar.getWidth(), botonRegistrar.getHeight(), Image.SCALE_DEFAULT));
@@ -351,35 +373,8 @@ public class VistaOperador extends JFrame {
             }
         }); // added closing brace here
         panelBlanco.add(botonRegistrar);
-        /*
-        // Agregar listener para el botón de cargar datos
-        botonCargarDatos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                // Cargar los datos del archivo JSON
-                ModeloOperador datos = ServiceOperador.readObject("cliente.json");
-        
-                // Actualizar la interfaz de usuario con los datos cargados
-                nombreCliente.setText(datos.getNombreCliente());
-                direccionCliente.setText(datos.getDireccionCliente());
-                telefonoCliente.setText(datos.getTelefonoCliente());
-                tipoCuentaCliente.setText(datos.getTipoCuentaCliente());
-        
-                nombrePedido.setText(datos.getNombrePedido());
-                codigoPedido.setText(datos.getCodigoPedido());
-                cantidadPedido.setText(datos.getCantidadPedido());
-        
-                resultadoBusqueda.setText(datos.getResultadoBusqueda());
-        
-                listaClientes.setListData(datos.getListaClientes());
-                listaPedidos.setListData(datos.getListaPedidos());
-        
-                JOptionPane.showMessageDialog(VistaOperador.this, "Datos cargados desde archivo JSON.");
-            } // added semicolon here
-            });
-         */
-        JButton botonIngresar=new JButton(); //boton para ingresar pedido
+        botonIngresar=new JButton(); //boton para ingresar pedido
         botonIngresar.setBounds(500, 600, 200, 100);
         ImageIcon imgR= new ImageIcon("src/Imagenes/btningresarPedido.png");// se le pone icono a boton
         Icon i= new ImageIcon(imgR.getImage().getScaledInstance(botonIngresar.getWidth(), botonIngresar.getHeight(), Image.SCALE_DEFAULT));
@@ -402,7 +397,7 @@ public class VistaOperador extends JFrame {
         });
         panelBlanco.add(botonIngresar);
 
-        JButton botonActPedido=new JButton();//boton para actualizar pedido
+        botonActPedido=new JButton();//boton para actualizar pedido
         botonActPedido.setBounds(700, 600, 200, 100);
         ImageIcon imgactPedido= new ImageIcon("src/Imagenes/botonActPedido.png");// se le pone icono a boton
         Icon iActPedi= new ImageIcon(imgactPedido.getImage().getScaledInstance(botonActPedido.getWidth(), botonActPedido.getHeight(), Image.SCALE_DEFAULT));
@@ -425,7 +420,7 @@ public class VistaOperador extends JFrame {
         });
         panelBlanco.add(botonActPedido);
 
-        JButton botonActDatos=new JButton();//boton para actualizar datos
+        botonActDatos=new JButton();//boton para actualizar datos
         botonActDatos.setBounds(900, 600, 200, 100);
         ImageIcon imgdatos= new ImageIcon("src/Imagenes/botonActDatos.png");// se le pone icono a boton
         Icon idatos= new ImageIcon(imgdatos.getImage().getScaledInstance(botonActDatos.getWidth(), botonActDatos.getHeight(), Image.SCALE_DEFAULT));
@@ -449,7 +444,6 @@ public class VistaOperador extends JFrame {
         panelBlanco.add(botonActDatos);
 
 
-      String nombrePedido= buscarCliente();
       informacionCliente();
       contenedor();
         contenedor.add(panelBlanco,Integer.valueOf(6));
@@ -467,15 +461,7 @@ public class VistaOperador extends JFrame {
     }
 
     //metodo para busqueda de cliente por telefono del mismo
-    public String buscarCliente(){
-        Color colorPanel=new Color(234,234,234);
-        txbuscarCliente.setBackground(colorPanel);
-        txbuscarCliente.setFont(new Font("Arial", Font.BOLD, 40));
-        txbuscarCliente.setBounds(300, 50, 700, 60);
-        String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
-        panelBlanco.add(txbuscarCliente);
-        return telefonoCliente;//se retorna el numero telefonico
-    }
+
 
     //estos metodos debe llamarlos el controlador
 

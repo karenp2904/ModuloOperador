@@ -93,7 +93,7 @@ public class ClienteOperador  implements Serializable {
     public ColasArray busquedaCliente(String clienteTelefonoABuscar) throws RemoteException {
         try{
             service = (IOperador) Naming.lookup(url);
-            return service.busquedaPedido(clienteTelefonoABuscar);
+            return service.busquedaCliente(clienteTelefonoABuscar);
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
             return null;
