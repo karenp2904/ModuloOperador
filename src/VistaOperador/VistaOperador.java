@@ -35,6 +35,7 @@ public class VistaOperador extends JFrame {
     JLabel fondo = new JLabel();//fondo
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
     JPanel panelInicio = new JPanel();
+    JPanel panelFondo=new JPanel();
     JPanel panelBusqueda=new JPanel();
     JPanel panelBlanco = new JPanel();
     JButton botonLogin=new JButton();
@@ -171,11 +172,11 @@ public class VistaOperador extends JFrame {
     public void panelComprobarCliente(){
         //Panel que tendrá las etiquetas y botones
         //fondo blanco del panel
-        panelBlanco.setLayout(null);
-        panelBlanco.setVisible(true);
-        panelBlanco.setOpaque(true);
-        panelBlanco.setBounds(0, 0, 1400, 800);
-        panelBlanco.setBackground(Color.white);
+        panelFondo.setLayout(null);
+        panelFondo.setVisible(true);
+        panelFondo.setOpaque(true);
+        panelFondo.setBounds(0, 0, 1400, 800);
+        panelFondo.setBackground(Color.white);
 
         panelBusqueda.setLayout(null);
         panelBusqueda.setVisible(true);
@@ -193,7 +194,7 @@ public class VistaOperador extends JFrame {
 
         botonBuscCliente=new JButton();//boton para buscar cliente
         botonBuscCliente.setVisible(true);
-        botonBuscCliente.setBounds(550, 400, 150, 80);
+        botonBuscCliente.setBounds(600, 400, 150, 80);
         ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
         Icon ibus= new ImageIcon(imgBus.getImage().getScaledInstance(botonBuscCliente.getWidth(), botonBuscCliente.getHeight(), Image.SCALE_DEFAULT));
         botonBuscCliente.setIcon(ibus);
@@ -212,10 +213,10 @@ public class VistaOperador extends JFrame {
 
 
         contenedor();
-        contenedor.add(panelBlanco,Integer.valueOf(4));
-        contenedor.add(fondo,Integer.valueOf(5));
-        contenedor.add(panelBusqueda,Integer.valueOf(6));
-        contenedor.add(botonBuscCliente,Integer.valueOf(7));
+        contenedor.add(panelFondo,Integer.valueOf(4));
+        contenedor.add(panelBusqueda,Integer.valueOf(12));
+        contenedor.add(botonBuscCliente,Integer.valueOf(13));
+
 
         elegirPanelSiClienteExiste(true);
 
@@ -237,14 +238,17 @@ public class VistaOperador extends JFrame {
             botonBuscCliente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    panelBusqueda.setVisible(false);
                     panelOperador();
+                    panelBusqueda.setVisible(false);
                     panelPedido.setVisible(true);
                     panelInformacion.setVisible(true);
-                    botonBuscCliente.setVisible(false);
                     panelPedido.setVisible(true);
-                    contenedor.add(panelBlanco,Integer.valueOf(8));
-                    contenedor.add(panelPedido,Integer.valueOf(9));
+                    botonBuscCliente.setVisible(false);
+                    panelBlanco.setVisible(true);
+                    panelFondo.setVisible(false);
+                    fondo.setVisible(false);
+                    contenedor.add(panelBlanco,Integer.valueOf(7));
+                    contenedor.add(panelPedido,Integer.valueOf(10));
                     contenedor.add(panelInformacion,Integer.valueOf(9));
                     contenedor.add(botonBuscar,Integer.valueOf(9));
 
@@ -281,7 +285,7 @@ public class VistaOperador extends JFrame {
 
         //panel para mostrar los pedidos frecuentes
         panelPedido.setLayout(null);
-        panelPedido.setVisible(false);
+        panelPedido.setVisible(true);
         panelPedido.setOpaque(true);
         Color colorPanel=new Color(234,234,234);
         panelPedido.setBounds(700, 150, 550, 400);
@@ -330,21 +334,19 @@ public class VistaOperador extends JFrame {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelBusqueda.setVisible(true);
+                panelComprobarCliente();
                 panelInformacion.setVisible(false);
                 panelPedido.setVisible(false);
-                botonBuscCliente.setVisible(true);
                 botonBuscar.setVisible(false);
-                botonActPedido.setVisible(false);
-                botonActDatos.setVisible(false);
-                botonIngresar.setVisible(false);
-                botonRegistrar.setVisible(false);
                 panelBlanco.setVisible(false);
-                panelComprobarCliente();
-                contenedor.add(panelBlanco,Integer.valueOf(4));
-                contenedor.add(fondo,Integer.valueOf(5));
-                contenedor.add(panelBusqueda,Integer.valueOf(6));
-                contenedor.add(botonBuscCliente,Integer.valueOf(7));
+                botonBuscCliente.setVisible(true);
+                panelBusqueda.setVisible(true);
+                panelFondo.setVisible(true);
+                fondo.setVisible(true);
+
+
+                contenedor.add(panelBusqueda,Integer.valueOf(12));
+                contenedor.add(botonBuscCliente,Integer.valueOf(13));
             }
         });
         panelBlanco.add(botonBuscar);
