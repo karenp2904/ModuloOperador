@@ -1,6 +1,7 @@
 package VistaOperador;
 
 import ControladorOperador.Controlador;
+import Dominio.Cliente;
 import Estructuras.Colas.ColasArray;
 
 import javax.swing.*;

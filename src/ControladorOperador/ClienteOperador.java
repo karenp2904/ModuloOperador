@@ -1,6 +1,7 @@
 package ControladorOperador;
 
 import Estructuras.Colas.ColasArray;
+import IServices.IOperador;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;

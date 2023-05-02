@@ -1,6 +1,7 @@
-package ControladorOperador;
+package IServices;
 
 import Estructuras.Colas.ColasArray;
+
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -19,7 +20,6 @@ public interface IOperador extends Remote, Serializable {
     boolean validarUsuario(String usuario, String contraseña)throws RemoteException;
 
     boolean clienteExistente(String telefono)throws RemoteException;
-
 
 
 
