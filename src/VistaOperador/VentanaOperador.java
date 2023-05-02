@@ -16,12 +16,33 @@ public class VentanaOperador extends JFrame {
     JPanel panelActCliente = new JPanel();
     JPanel panelActPedido = new JPanel();
     JPanel panelIngrePedido = new JPanel();
-    JPanel panelPedidosEncontrados=new JPanel();
+    JPanel panelPedidosEncontrados = new JPanel();
 
-    JPanel panelPedidosFrecuentes=new JPanel();
+    JPanel panelPedidosFrecuentes = new JPanel();
 
-    JPanel panelEditarInfo =new JPanel();
+    JPanel panelEditarInfo = new JPanel();
 
+    //cuadros del cliente
+    JTextField txtRegistroNombre = new JTextField();
+    JTextField txtRegistroDireccion = new JTextField();
+    JTextField txtRegistroTipo = new JTextField();
+    JTextField txtRegistroTelefono = new JTextField();
+    JTextField txtActNombre = new JTextField();
+    JTextField txtActTelefono = new JTextField();
+    JTextField txtActDireccion = new JTextField();
+    JTextField txtActTipo = new JTextField();
+
+    //cuadros del pedido
+    JTextField txIngresarProducto = new JTextField();
+    JTextField txtIngrCodigo = new JTextField();
+    JTextField txtIngrCantidad = new JTextField();
+    JTextField txtActProducto = new JTextField();
+    JTextField txtActCodigo = new JTextField();
+    JTextField txtActCantidad = new JTextField();
+
+    //cuadros busqueda
+    JTextField txtbusquedaPedido = new JTextField();
+    JTextField txbusquedaCliente = new JTextField();
 
 
     JLayeredPane contenedor = new JLayeredPane();
@@ -191,6 +212,12 @@ public class VentanaOperador extends JFrame {
         nombretext.setFont(new Font("Arial", Font.BOLD, 20));
         nombretext.setBounds(60, 120, 200, 100);
         panelRegistro.add(nombretext);
+
+        txtRegistroNombre.setBackground(Color.white);
+        txtRegistroNombre.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroNombre.setBounds(300, 150, 220, 40);
+        panelRegistro.add(txtRegistroNombre);
+
         //Label del numero telefonico
         JLabel telefonoText = new JLabel("TELEFONO: ");
         telefonoText.setBackground(Color.black);
@@ -198,11 +225,22 @@ public class VentanaOperador extends JFrame {
         telefonoText.setBounds(60, 170, 200, 100);
         panelRegistro.add(telefonoText);
 
+        txtRegistroTelefono.setBackground(Color.white);
+        // txTelefono.setBackground(new Color(217,217,217));
+        txtRegistroTelefono.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroTelefono.setBounds(300, 200, 220, 40);
+        panelRegistro.add(txtRegistroTelefono);
+
         JLabel direccionText = new JLabel("DIRECCIÓN: ");
         direccionText.setBackground(Color.black);
         direccionText.setFont(new Font("Arial", Font.BOLD, 20));
         direccionText.setBounds(60, 220, 200, 100);
         panelRegistro.add(direccionText);
+
+        txtRegistroDireccion.setBackground(Color.white);
+        txtRegistroDireccion.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroDireccion.setBounds(300, 250, 220, 40);
+        panelRegistro.add(txtRegistroDireccion);
 
         JLabel tipoText = new JLabel("TIPO: ");
         tipoText.setBackground(Color.black);
@@ -210,10 +248,14 @@ public class VentanaOperador extends JFrame {
         tipoText.setBounds(60, 270, 200, 100);
         panelRegistro.add(tipoText);
 
+        txtRegistroTipo.setBackground(Color.white);
+        txtRegistroTipo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroTipo.setBounds(300, 300, 220, 40);
+        panelRegistro.add(txtRegistroTipo);
+
         JButton aceptar=new JButton("Aceptar");
         aceptar.setBounds(300,350,100,70);
         panelGeneral.add(aceptar);
-
 
         String nombre=ingresarNombre();
         String telefono=ingresarTelefono();
@@ -238,6 +280,13 @@ public class VentanaOperador extends JFrame {
         operadorText.setFont(new Font("Arial", Font.BOLD, 40));
         operadorText.setBounds(180, 0, 600, 100);
         panelBuscar.add(operadorText);
+
+        Color colorPanel=new Color(234,234,234);
+        txbusquedaCliente.setBackground(colorPanel);
+        txbusquedaCliente.setFont(new Font("Arial", Font.BOLD, 40));
+        txbusquedaCliente.setBounds(60, 150, 600, 60);
+
+        panelBuscar.add(txbusquedaCliente);
 
         JButton botonAceptar=new JButton("Aceptar");
         botonAceptar.setBounds(250,300,200,80);
@@ -306,6 +355,7 @@ public class VentanaOperador extends JFrame {
     }
 
     public void panelActualizarInfoCliente(){
+
         panelActCliente.setLayout(null);
         panelActCliente.setVisible(true);
         panelActCliente.setOpaque(true);
@@ -323,6 +373,12 @@ public class VentanaOperador extends JFrame {
         nombretext.setFont(new Font("Arial", Font.BOLD, 20));
         nombretext.setBounds(60, 120, 200, 100);
         panelActCliente.add(nombretext);
+
+        txtActNombre.setBackground(Color.white);
+        txtActNombre.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActNombre.setBounds(300, 150, 220, 40);
+        panelActCliente.add(txtActNombre);
+
         //Label del numero telefonico
         JLabel telefonoText = new JLabel("TELEFONO: ");
         telefonoText.setBackground(Color.black);
@@ -330,17 +386,33 @@ public class VentanaOperador extends JFrame {
         telefonoText.setBounds(60, 170, 200, 100);
         panelActCliente.add(telefonoText);
 
+        txtActTelefono.setBackground(Color.white);
+        // txTelefono.setBackground(new Color(217,217,217));
+        txtActTelefono.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActTelefono.setBounds(300, 200, 220, 40);
+        panelActCliente.add(txtActTelefono);
+
         JLabel direccionText = new JLabel("DIRECCIÓN: ");
         direccionText.setBackground(Color.black);
         direccionText.setFont(new Font("Arial", Font.BOLD, 20));
         direccionText.setBounds(60, 220, 200, 100);
         panelActCliente.add(direccionText);
 
+        txtActDireccion.setBackground(Color.white);
+        txtActDireccion.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActDireccion.setBounds(300, 250, 220, 40);
+        panelActCliente.add(txtActDireccion);
+
         JLabel tipoText = new JLabel("TIPO: ");
         tipoText.setBackground(Color.black);
         tipoText.setFont(new Font("Arial", Font.BOLD, 20));
         tipoText.setBounds(60, 270, 200, 100);
         panelActCliente.add(tipoText);
+
+        txtActTipo.setBackground(Color.white);
+        txtActTipo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActTipo.setBounds(300, 300, 220, 40);
+        panelActCliente.add(txtActTipo);
 
         JButton aceptar=new JButton("Aceptar");
         aceptar.setBounds(300,350,100,70);
@@ -382,17 +454,35 @@ public class VentanaOperador extends JFrame {
         productoText.setBounds(70, 190, 200, 100);
         panelIngrePedido.add(productoText);
 
+        Color colorPanel=new Color(234,234,234);
+        txIngresarProducto.setBackground(colorPanel);
+        txIngresarProducto.setFont(new Font("Arial", Font.BOLD, 20));
+        txIngresarProducto.setBounds(300, 210, 300, 50);
+        panelIngrePedido.add(txIngresarProducto);
+
+
         JLabel tamañoText = new JLabel("REFERENCIA: ");
         tamañoText.setBackground(Color.black);
         tamañoText.setFont(new Font("Arial", Font.BOLD, 20));
         tamañoText.setBounds(70, 260, 200, 100);
         panelIngrePedido.add(tamañoText);
 
+        Color colorPanel2=new Color(234,234,234);
+        txtIngrCodigo.setBackground(colorPanel2);
+        txtIngrCodigo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtIngrCodigo.setBounds(300, 280, 300, 50);
+        panelIngrePedido.add(txtIngrCodigo);
+
         JLabel cantidadText = new JLabel("CANTIDAD: ");
         cantidadText.setBackground(Color.black);
         cantidadText.setFont(new Font("Arial", Font.BOLD, 20));
         cantidadText.setBounds(70, 330, 200, 100);
         panelIngrePedido.add(cantidadText);
+
+        txtIngrCantidad.setBackground(colorPanel2);
+        txtIngrCantidad.setFont(new Font("Arial", Font.BOLD, 20));
+        txtIngrCantidad.setBounds(300, 350, 300, 50);
+        panelIngrePedido.add(txtIngrCantidad);
 
         JButton botonBuscar=new JButton("Buscar");
         botonBuscar.setBounds(510, 60, 90, 70);
@@ -443,17 +533,36 @@ public class VentanaOperador extends JFrame {
         productoText.setBounds(70, 190, 200, 100);
         panelActPedido.add(productoText);
 
+
+        Color colorPanel=new Color(234,234,234);
+        txtActProducto.setBackground(colorPanel);
+        txtActProducto.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActProducto.setBounds(300, 210, 300, 50);
+        panelIngrePedido.add(txtActProducto);
+
+
         JLabel tamañoText = new JLabel("REFERENCIA: ");
         tamañoText.setBackground(Color.black);
         tamañoText.setFont(new Font("Arial", Font.BOLD, 20));
         tamañoText.setBounds(70, 260, 200, 100);
-        panelActPedido.add(tamañoText);
+        panelIngrePedido.add(tamañoText);
+
+        Color colorPanel2=new Color(234,234,234);
+        txtActCodigo.setBackground(colorPanel2);
+        txtActCodigo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActCodigo.setBounds(300, 280, 300, 50);
+        panelIngrePedido.add(txtActCodigo);
 
         JLabel cantidadText = new JLabel("CANTIDAD: ");
         cantidadText.setBackground(Color.black);
         cantidadText.setFont(new Font("Arial", Font.BOLD, 20));
         cantidadText.setBounds(70, 330, 200, 100);
-        panelActPedido.add(cantidadText);
+        panelIngrePedido.add(cantidadText);
+
+        txtActCantidad.setBackground(colorPanel2);
+        txtActCantidad.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActCantidad.setBounds(300, 350, 300, 50);
+        panelIngrePedido.add(txtActCantidad);
 
         JButton botonBuscar=new JButton("Aceptar");
         botonBuscar.setBounds(510, 60, 90, 70);
@@ -477,138 +586,73 @@ public class VentanaOperador extends JFrame {
     }
 
     public String ingresarNombre(){
-        JTextField txusuario = new JTextField();
-        txusuario.setBackground(Color.white);
-        txusuario.setFont(new Font("Arial", Font.BOLD, 20));
-        txusuario.setBounds(300, 150, 220, 40);
-        panelRegistro.add(txusuario);
-        String usuario=txusuario.getText();// se obtiene el usuario
+        String usuario=txtRegistroNombre.getText();// se obtiene el usuario
         return usuario;// se retorna
     }
 
     //metodo para obtener el telefono el cliente
     public String ingresarTelefono(){
-        JTextField txTelefono = new JTextField();
-        txTelefono.setBackground(Color.white);
-        // txTelefono.setBackground(new Color(217,217,217));
-        txTelefono.setFont(new Font("Arial", Font.BOLD, 20));
-        txTelefono.setBounds(300, 200, 220, 40);
-        panelRegistro.add(txTelefono);
-        String telefono=txTelefono.getText();// se obtiene el telefonor
+        String telefono=txtRegistroTelefono.getText();// se obtiene el telefonor
         return telefono;// se retorna
     }
 
     //metodo para obtener la direccion el cliente
     public String ingresarDireccion(){
-        JTextField txDireccion = new JTextField();
-        txDireccion.setBackground(Color.white);
-        txDireccion.setFont(new Font("Arial", Font.BOLD, 20));
-        txDireccion.setBounds(300, 250, 220, 40);
-        panelRegistro.add(txDireccion);
-        String direccion=txDireccion.getText();
+
+        String direccion=txtRegistroDireccion.getText();
         return direccion;
     }
 
     //metodo para obtener el tipo de cliente el cliente
     public String ingresarTipoCliente(){
-        JTextField txCliente = new JTextField();
-        txCliente.setBackground(Color.white);
-        txCliente.setFont(new Font("Arial", Font.BOLD, 20));
-        txCliente.setBounds(300, 300, 220, 40);
-        panelRegistro.add(txCliente);
-        String tipo=txCliente.getText();
+        String tipo=txtRegistroTipo.getText();
         return tipo;
     }
 
 
     public String actualizarNombre(){
-        JTextField txusuario = new JTextField();
-        txusuario.setBackground(Color.white);
-        txusuario.setFont(new Font("Arial", Font.BOLD, 20));
-        txusuario.setBounds(300, 150, 220, 40);
-        panelActCliente.add(txusuario);
-        String usuario=txusuario.getText();// se obtiene el usuario
+        String usuario=txtActNombre.getText();// se obtiene el usuario
         return usuario;// se retorna
     }
 
     //metodo para obtener el telefono el cliente
     public String actualizarTelefono(){
-        JTextField txTelefono = new JTextField();
-        txTelefono.setBackground(Color.white);
-        // txTelefono.setBackground(new Color(217,217,217));
-        txTelefono.setFont(new Font("Arial", Font.BOLD, 20));
-        txTelefono.setBounds(300, 200, 220, 40);
-        panelActCliente.add(txTelefono);
-        String telefono=txTelefono.getText();// se obtiene el telefonor
+        String telefono=txtActTelefono.getText();// se obtiene el telefonor
         return telefono;// se retorna
     }
 
     //metodo para obtener la direccion el cliente
     public String actualizarDireccion(){
-        JTextField txDireccion = new JTextField();
-        txDireccion.setBackground(Color.white);
-        txDireccion.setFont(new Font("Arial", Font.BOLD, 20));
-        txDireccion.setBounds(300, 250, 220, 40);
-        panelActCliente.add(txDireccion);
-        String direccion=txDireccion.getText();
+        String direccion=txtActDireccion.getText();
         return direccion;
     }
 
     //metodo para obtener el tipo de cliente el cliente
     public String actualizarTipoCliente(){
-        JTextField txCliente = new JTextField();
-        txCliente.setBackground(Color.white);
-        txCliente.setFont(new Font("Arial", Font.BOLD, 20));
-        txCliente.setBounds(300, 300, 220, 40);
-        panelActCliente.add(txCliente);
-        String tipo=txCliente.getText();
+        String tipo=txtActTipo.getText();
         return tipo;
     }
 
 
     public String buscarCliente(){
-        JTextField txbuscarCliente=new JTextField();
-        Color colorPanel=new Color(234,234,234);
-        txbuscarCliente.setBackground(colorPanel);
-        txbuscarCliente.setFont(new Font("Arial", Font.BOLD, 40));
-        txbuscarCliente.setBounds(60, 150, 600, 60);
-        String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
-        panelBuscar.add(txbuscarCliente);
+        String telefonoCliente= txbusquedaCliente.getText();//se obtiene el telefono
         return telefonoCliente;//se retorna el numero telefonico
     }
 
     public String ingresarProducto(){
-        JTextField txIngresarProducto=new JTextField();
-        Color colorPanel=new Color(234,234,234);
-        txIngresarProducto.setBackground(colorPanel);
-        txIngresarProducto.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarProducto.setBounds(300, 210, 300, 50);
         String producto=txIngresarProducto.getText();
-        panelIngrePedido.add(txIngresarProducto);
         return producto;
     }
 
     //metodo para ingresar codigo del producto del pedido
     public String ingresarReferencia(){
-        JTextField txIngresarTamaño=new JTextField();
-        Color colorPanel=new Color(234,234,234);
-        txIngresarTamaño.setBackground(colorPanel);
-        txIngresarTamaño.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarTamaño.setBounds(300, 280, 300, 50);
-        String tamaño=txIngresarTamaño.getText();
-        panelIngrePedido.add(txIngresarTamaño);
+        String tamaño=txtIngrCodigo.getText();
         return tamaño;
     }
 
     //metodo para ingresar cantidad del producto del pedido
     public String ingresarCantidad(){
-        JTextField txIngresarCantidad=new JTextField();
-        Color colorPanel=new Color(234,234,234);
-        txIngresarCantidad.setBackground(colorPanel);
-        txIngresarCantidad.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarCantidad.setBounds(300, 350, 300, 50);
-        String Cantidad=txIngresarCantidad.getText();
-        panelIngrePedido.add(txIngresarCantidad);
+        String Cantidad=txtIngrCantidad.getText();
         return Cantidad;
     }
 

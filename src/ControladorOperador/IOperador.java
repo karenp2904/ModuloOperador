@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 public interface IOperador extends Remote, Serializable {
 
-    boolean registrarCliente(String nombre, String direccion, String telefono,String tipoDeCuenta) throws RemoteException;//registro de clientes
+    boolean registrarCliente(String nombre,String direccion, String telefono,String tipoDeCuenta) throws RemoteException;//registro de clientes
     boolean actualizarCliente(String nombre, String direccion, String telefono,String tipoDeCuenta ) throws RemoteException;//actualizar el cliente
     boolean ingresarPedido(String producto, String codigo, String cantidad) throws RemoteException;//ingresar un pedido
     boolean actualizarPedido(String producto, String codigo, String cantidad) throws RemoteException;//actualizar un pedido
@@ -16,7 +16,7 @@ public interface IOperador extends Remote, Serializable {
 
     ColasArray busquedaCliente(String clienteTelefonoABuscar)  throws RemoteException; //busqueda de cliente
 
-    boolean validarUsuario(String modulo,String usuario, String contraseña)throws RemoteException;
+    boolean validarUsuario(String usuario, String contraseña)throws RemoteException;
 
     boolean clienteExistente(String telefono)throws RemoteException;
 

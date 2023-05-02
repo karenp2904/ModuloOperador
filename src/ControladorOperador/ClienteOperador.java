@@ -101,10 +101,10 @@ public class ClienteOperador  implements Serializable {
     }
 
 
-    public boolean validarUsuario(String modulo, String nombre, String contraseña) throws RemoteException {
+    public boolean validarUsuario( String nombre, String contraseña) throws RemoteException {
         try{
             service = (IOperador) Naming.lookup(url);
-            return service.validarUsuario(modulo,nombre,contraseña);
+            return service.validarUsuario(nombre,contraseña);
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
             return false;

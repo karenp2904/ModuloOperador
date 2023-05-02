@@ -1,6 +1,8 @@
 package VistaOperador;
 
+import ControladorOperador.Controlador;
 import Estructuras.Colas.ColasArray;
+import com.sun.tools.javac.Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.rmi.RemoteException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -31,7 +34,9 @@ public class VistaOperador extends JFrame {
     se muestran datos de nombre- telefono -tipo de cliente- direccion y pedidos frecuentes
 
      */
+
 //
+    Controlador controlador=new Controlador();
     JLabel fondo = new JLabel();//fondo
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
     JPanel panelInicio = new JPanel();
@@ -49,6 +54,8 @@ public class VistaOperador extends JFrame {
     JButton botonIngresar=new JButton();
     JButton botonActPedido = new JButton();
     JButton botonActDatos=new JButton();
+    JTextField txusuario = new JTextField();//caja de texto
+    JTextField txcontraseña = new JTextField();//caja de texto
 
     //Constructor de la ventana con las propiedades de la misma
     public VistaOperador(){
@@ -88,6 +95,10 @@ public class VistaOperador extends JFrame {
         nombreUsuario.setBackground(Color.black);
         nombreUsuario.setBounds(40, 180, 200, 100);
         panelInicio.add(nombreUsuario);
+
+        txusuario.setBackground(Color.white);//color
+        txusuario.setBounds(30, 250, 300, 40);//ubicacion y tamaño
+        panelInicio.add(txusuario);//se añade al panel
         //Aqui se llama al metodo//TEMPORAL
         String usuario=validarUsuario();
 
@@ -96,6 +107,10 @@ public class VistaOperador extends JFrame {
         contraseña.setBackground(Color.black);
         contraseña.setBounds(40, 290, 200, 100);
         panelInicio.add(contraseña);
+
+        txcontraseña.setBackground(Color.white);//color
+        txcontraseña.setBounds(30,360,300,40);//ubicacion y tamaño
+        panelInicio.add(txcontraseña);//se añade al panel
         //Aqui se llama al metodo
         String contraseñaa= validarContraseña();
 
@@ -113,6 +128,18 @@ public class VistaOperador extends JFrame {
         botonLogin.setBackground(Color.white);
         panelInicio.add(botonLogin);
 
+        botonLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.validarUsuario(txusuario.getText(),txcontraseña.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+
         //fondo del login
         ImageIcon imagen =new ImageIcon("src/Imagenes/loginOperador.png");
         fondo.setIcon(imagen);
@@ -125,6 +152,8 @@ public class VistaOperador extends JFrame {
 
         accederLogin(true);
     }
+
+
 
     public void accederLogin(boolean validacion){
         if(validacion){
@@ -150,20 +179,12 @@ public class VistaOperador extends JFrame {
 
     //metodo para verificar usuario ingresada por el operador
     public String validarUsuario(){
-        JTextField txusuario = new JTextField();//caja de texto
-        txusuario.setBackground(Color.white);//color
-        txusuario.setBounds(30, 250, 300, 40);//ubicacion y tamaño
-        panelInicio.add(txusuario);//se añade al panel
         String usuario=txusuario.getText();//SE TOMA EL VALOR QUE SE DIGITA
         return usuario;
     }
 
     //metodo para verificar contraseña ingresada por el operador
     public String validarContraseña(){
-        JTextField txcontraseña = new JTextField();//caja de texto
-        txcontraseña.setBackground(Color.white);//color
-        txcontraseña.setBounds(30,360,300,40);//ubicacion y tamaño
-        panelInicio.add(txcontraseña);//se añade al panel
         String contraseña=txcontraseña.getText();//SE TOMA EL VALOR QUE SE DIGITA
         return contraseña;
     }
@@ -192,6 +213,11 @@ public class VistaOperador extends JFrame {
         operadorText.setBounds(180, 0, 600, 100);
         panelBusqueda.add(operadorText);
 
+        txbuscarCliente.setBackground(new Color(234,234,234));
+        txbuscarCliente.setFont(new Font("Arial", Font.BOLD, 40));
+        txbuscarCliente.setBounds(60, 150, 600, 60);
+        panelBusqueda.add(txbuscarCliente);
+
         botonBuscCliente=new JButton();//boton para buscar cliente
         botonBuscCliente.setVisible(true);
         botonBuscCliente.setBounds(600, 400, 150, 80);
@@ -206,6 +232,19 @@ public class VistaOperador extends JFrame {
         botonBuscCliente.setRolloverIcon(ibus2);
         botonBuscCliente.setBackground(Color.white);
         panelBusqueda.add(botonBuscCliente);
+        botonBuscCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.busquedaCliente(txbuscarCliente.getText());
+                    controlador.clienteExistente(txbuscarCliente.getText());
+                    controlador.pedidosFrecuentesCliente(txbuscarCliente.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
 
         ImageIcon imagen =new ImageIcon("src/Imagenes/fondoLetras.png");
         fondo.setIcon(imagen);
@@ -224,12 +263,8 @@ public class VistaOperador extends JFrame {
     }
 
     public String buscarClienteAntes(){
-        Color colorPanel=new Color(234,234,234);
-        txbuscarCliente.setBackground(colorPanel);
-        txbuscarCliente.setFont(new Font("Arial", Font.BOLD, 40));
-        txbuscarCliente.setBounds(60, 150, 600, 60);
+
         String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
-        panelBusqueda.add(txbuscarCliente);
         return telefonoCliente;//se retorna el numero telefonico
     }
 
@@ -247,6 +282,8 @@ public class VistaOperador extends JFrame {
                     panelBlanco.setVisible(true);
                     panelFondo.setVisible(false);
                     fondo.setVisible(false);
+
+                    txbuscarCliente.getText();
                     contenedor.add(panelBlanco,Integer.valueOf(7));
                     contenedor.add(panelPedido,Integer.valueOf(10));
                     contenedor.add(panelInformacion,Integer.valueOf(9));
@@ -261,11 +298,10 @@ public class VistaOperador extends JFrame {
                     panelBlanco.setVisible(false);
                     botonBuscCliente.setVisible(false);
                     fondo.setVisible(false);
+                    txbuscarCliente.getText();
                     VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
                     vistaOperadorDatos.panelRegistroCliente();
                     dispose();
-
-
                 }
             });
         }
@@ -334,6 +370,7 @@ public class VistaOperador extends JFrame {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 panelComprobarCliente();
                 panelInformacion.setVisible(false);
                 panelPedido.setVisible(false);

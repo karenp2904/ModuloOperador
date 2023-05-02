@@ -1,26 +1,47 @@
 package VistaOperador;
 
+import ControladorOperador.Controlador;
 import Estructuras.Colas.ColasArray;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class VistaOperadorDatos extends JFrame {
 
     /*
     Datos de registro de cliente y actulizacion, ingreso y actulizacion del pedido
      */
+     Controlador controlador=new Controlador();
     JPanel panelCentral =new JPanel();
     JPanel panelFrecuentes=new JPanel();
     JPanel panelCompletar=new JPanel();
     JLabel fondo = new JLabel();
     JLayeredPane contenedor=new JLayeredPane();
-    JTextField txbuscarPedido =new JTextField();
-    JTextField txIngresarProducto =new JTextField();
-    JTextField txIngresarCantidad =new JTextField();
-    JTextField txIngresarTamaño =new JTextField();
+
+    //cuadros del cliente
+    JTextField txtRegistroNombre = new JTextField();
+    JTextField txtRegistroDireccion = new JTextField();
+    JTextField txtRegistroTipo = new JTextField();
+    JTextField txtRegistroTelefono = new JTextField();
+    JTextField txtActNombre = new JTextField();
+    JTextField txtActTelefono = new JTextField();
+    JTextField txtActDireccion = new JTextField();
+    JTextField txtActTipo = new JTextField();
+
+    //cuadros del pedido
+    JTextField txtIngreProducto = new JTextField();
+    JTextField txtIngrCodigo = new JTextField();
+    JTextField txtIngrCantidad = new JTextField();
+    JTextField txtActProducto = new JTextField();
+    JTextField txtActCodigo = new JTextField();
+    JTextField txtActCantidad = new JTextField();
+
+    //cuadros busqueda
+    JTextField txtbusquedaPedido = new JTextField();
+    JTextField txbusquedaCliente = new JTextField();
 
     public VistaOperadorDatos(){
         this.setTitle("Hot Dogs Palace");
@@ -61,6 +82,12 @@ public class VistaOperadorDatos extends JFrame {
         nombretext.setFont(new Font("Arial", Font.BOLD, 20));
         nombretext.setBounds(480, 120, 200, 100);
         panelCentral.add(nombretext);
+
+        txtRegistroNombre.setBackground(Color.white);
+        txtRegistroNombre.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroNombre.setBounds(640, 150, 220, 40);
+        panelCentral.add(txtRegistroNombre);
+
         //Label del numero telefonico
         JLabel telefonoText = new JLabel("TELEFONO: ");
         telefonoText.setBackground(Color.black);
@@ -68,11 +95,22 @@ public class VistaOperadorDatos extends JFrame {
         telefonoText.setBounds(480, 170, 200, 100);
         panelCentral.add(telefonoText);
 
+        txtRegistroTelefono.setBackground(Color.white);
+        // txTelefono.setBackground(new Color(217,217,217));
+        txtRegistroTelefono.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroTelefono.setBounds(640, 200, 220, 40);
+        panelCentral.add(txtRegistroTelefono);
+
         JLabel direccionText = new JLabel("DIRECCIÓN: ");
         direccionText.setBackground(Color.black);
         direccionText.setFont(new Font("Arial", Font.BOLD, 20));
         direccionText.setBounds(480, 220, 200, 100);
         panelCentral.add(direccionText);
+
+        txtRegistroDireccion.setBackground(Color.white);
+        txtRegistroDireccion.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroDireccion.setBounds(640, 250, 220, 40);
+        panelCentral.add(txtRegistroDireccion);
 
         JLabel tipoText = new JLabel("TIPO: ");
         tipoText.setBackground(Color.black);
@@ -80,11 +118,11 @@ public class VistaOperadorDatos extends JFrame {
         tipoText.setBounds(480, 270, 200, 100);
         panelCentral.add(tipoText);
 
+        txtRegistroTipo.setBackground(Color.white);
+        txtRegistroTipo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtRegistroTipo.setBounds(640, 300, 220, 40);
+        panelCentral.add(txtRegistroTipo);
 
-        String nombre=ingresarNombre();
-        String telefono=ingresarTelefono();
-        String direccion=ingresarDireccion();
-        String tipo=ingresarTipoCliente();
 
         JButton botonIngresar=new JButton(); //boton para ingresar pedido
         botonIngresar.setBounds(520, 400, 200, 100);
@@ -102,6 +140,11 @@ public class VistaOperadorDatos extends JFrame {
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
                 VistaOperador vistaMenu=new VistaOperador();
                 vistaMenu.panelOperador();
                 dispose();
@@ -117,46 +160,27 @@ public class VistaOperadorDatos extends JFrame {
 
     //metodo para obtener el nombre el cliente
     public String ingresarNombre(){
-        JTextField txusuario = new JTextField();
-        txusuario.setBackground(Color.white);
-        txusuario.setFont(new Font("Arial", Font.BOLD, 20));
-        txusuario.setBounds(640, 150, 220, 40);
-        panelCentral.add(txusuario);
-        String usuario=txusuario.getText();// se obtiene el usuario
+
+        String usuario=txtRegistroNombre.getText();// se obtiene el usuario
         return usuario;// se retorna
     }
 
     //metodo para obtener el telefono el cliente
     public String ingresarTelefono(){
-        JTextField txTelefono = new JTextField();
-        txTelefono.setBackground(Color.white);
-       // txTelefono.setBackground(new Color(217,217,217));
-        txTelefono.setFont(new Font("Arial", Font.BOLD, 20));
-        txTelefono.setBounds(640, 200, 220, 40);
-        panelCentral.add(txTelefono);
-        String telefono=txTelefono.getText();// se obtiene el telefonor
+        String telefono=txtRegistroTelefono.getText();// se obtiene el telefonor
         return telefono;// se retorna
     }
 
     //metodo para obtener la direccion el cliente
     public String ingresarDireccion(){
-        JTextField txDireccion = new JTextField();
-        txDireccion.setBackground(Color.white);
-        txDireccion.setFont(new Font("Arial", Font.BOLD, 20));
-        txDireccion.setBounds(640, 250, 220, 40);
-        panelCentral.add(txDireccion);
-        String direccion=txDireccion.getText();
+
+        String direccion=txtRegistroDireccion.getText();
         return direccion;
     }
 
     //metodo para obtener el tipo de cliente el cliente
     public String ingresarTipoCliente(){
-        JTextField txCliente = new JTextField();
-        txCliente.setBackground(Color.white);
-        txCliente.setFont(new Font("Arial", Font.BOLD, 20));
-        txCliente.setBounds(640, 300, 220, 40);
-        panelCentral.add(txCliente);
-        String tipo=txCliente.getText();
+        String tipo=txtActTipo.getText();
         return tipo;
     }
 
@@ -199,6 +223,12 @@ public class VistaOperadorDatos extends JFrame {
         letreroIngreso.setFont(new Font("Arial", Font.BOLD, 40));
         letreroIngreso.setBounds(500, 150, 600, 200);
 
+        Color colorPanel=new Color(234,234,234);
+        txtbusquedaPedido.setBackground(colorPanel);
+        txtbusquedaPedido.setFont(new Font("Arial", Font.BOLD, 30));
+        txtbusquedaPedido.setBounds(350, 60, 500, 60);
+        panelCentral.add(txtbusquedaPedido);
+
         String buscar=buscarPedido();
         String producto=ingresarProducto();
         String cantidad=ingresarCantidad();
@@ -210,17 +240,33 @@ public class VistaOperadorDatos extends JFrame {
         productoText.setBounds(370, 190, 200, 100);
         panelCentral.add(productoText);
 
+        txtIngreProducto.setBackground(new Color(234,234,234));
+        txtIngreProducto.setFont(new Font("Arial", Font.BOLD, 20));
+        txtIngreProducto.setBounds(500, 210, 400, 50);
+        panelCentral.add(txtIngreProducto);
+
         JLabel tamañoText = new JLabel("CÓDIGO: ");
         tamañoText.setBackground(Color.black);
         tamañoText.setFont(new Font("Arial", Font.BOLD, 20));
         tamañoText.setBounds(370, 260, 200, 100);
         panelCentral.add(tamañoText);
 
+        txtIngrCodigo.setBackground(new Color(234,234,234));
+        txtIngrCodigo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtIngrCodigo.setBounds(500, 280, 400, 50);
+        panelCentral.add(txtIngrCodigo);
+
         JLabel cantidadText = new JLabel("CANTIDAD: ");
         cantidadText.setBackground(Color.black);
         cantidadText.setFont(new Font("Arial", Font.BOLD, 20));
         cantidadText.setBounds(370, 330, 200, 100);
         panelCentral.add(cantidadText);
+
+
+        txtIngrCantidad.setBackground(new Color(234,234,234));
+        txtIngrCantidad.setFont(new Font("Arial", Font.BOLD, 20));
+        txtIngrCantidad.setBounds(500, 350, 400, 50);
+        panelCentral.add(txtIngrCantidad);
 
         JButton botonBuscar=new JButton();
         botonBuscar=new JButton();//boton para buscar cliente
@@ -240,6 +286,11 @@ public class VistaOperadorDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelCompletar.setVisible(true);
+                try {
+                    controlador.busquedaPedido(txtbusquedaPedido.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -261,6 +312,11 @@ public class VistaOperadorDatos extends JFrame {
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.ingresarPedido(txtIngreProducto.getText(),txtIngrCodigo.getText(),txtIngrCantidad.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
                 VistaOperador vistaMenu=new VistaOperador();
                 vistaMenu.panelOperador();
                 dispose();
@@ -268,7 +324,7 @@ public class VistaOperadorDatos extends JFrame {
         });
         panelCentral.add(botonIngresar);
 
-        contenedor.add(txbuscarPedido,Integer.valueOf(2));
+        contenedor.add(txtbusquedaPedido,Integer.valueOf(2));
         contenedor.add(panelFrecuentes,Integer.valueOf(4));
         contenedor.add(logo,Integer.valueOf(3));
         contenedor.add(letreroIngreso,Integer.valueOf(3));
@@ -283,12 +339,8 @@ public class VistaOperadorDatos extends JFrame {
 
     //metodo para buscar pedido- autocompletar
     public String buscarPedido(){
-        Color colorPanel=new Color(234,234,234);
-        txbuscarPedido.setBackground(colorPanel);
-        txbuscarPedido.setFont(new Font("Arial", Font.BOLD, 30));
-        txbuscarPedido.setBounds(350, 60, 500, 60);
-        String nombrePedido=txbuscarPedido.getText();
-        panelCentral.add(txbuscarPedido);
+
+        String nombrePedido= txtbusquedaPedido.getText();
         return nombrePedido;
     }
 
@@ -309,34 +361,21 @@ public class VistaOperadorDatos extends JFrame {
 
     //metodo para ingresar producto del pedido
     public String ingresarProducto(){
-        Color colorPanel=new Color(234,234,234);
-        txIngresarProducto.setBackground(colorPanel);
-        txIngresarProducto.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarProducto.setBounds(500, 210, 400, 50);
-        String producto=txIngresarProducto.getText();
-        panelCentral.add(txIngresarProducto);
+
+        String producto= txtIngreProducto.getText();
         return producto;
     }
 
     //metodo para ingresar codigo del producto del pedido
     public String ingresarCodido(){
-        Color colorPanel=new Color(234,234,234);
-        txIngresarTamaño.setBackground(colorPanel);
-        txIngresarTamaño.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarTamaño.setBounds(500, 280, 400, 50);
-        String tamaño=txIngresarTamaño.getText();
-        panelCentral.add(txIngresarTamaño);
+
+        String tamaño=txtActCodigo.getText();
         return tamaño;
     }
 
     //metodo para ingresar cantidad del producto del pedido
     public String ingresarCantidad(){
-        Color colorPanel=new Color(234,234,234);
-        txIngresarCantidad.setBackground(colorPanel);
-        txIngresarCantidad.setFont(new Font("Arial", Font.BOLD, 20));
-        txIngresarCantidad.setBounds(500, 350, 400, 50);
-        String Cantidad=txIngresarCantidad.getText();
-        panelCentral.add(txIngresarCantidad);
+        String Cantidad=txtIngrCantidad.getText();
         return Cantidad;
     }
 
@@ -391,6 +430,12 @@ public class VistaOperadorDatos extends JFrame {
         nombretext.setFont(new Font("Arial", Font.BOLD, 20));
         nombretext.setBounds(480, 120, 200, 100);
         panelCentral.add(nombretext);
+
+        txtActNombre.setBackground(Color.white);
+        txtActNombre.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActNombre.setBounds(640, 150, 220, 40);
+        panelCentral.add(txtActNombre);
+
         //Label del numero telefonico
         JLabel telefonoText = new JLabel("TELEFONO: ");
         telefonoText.setBackground(Color.black);
@@ -398,17 +443,33 @@ public class VistaOperadorDatos extends JFrame {
         telefonoText.setBounds(480, 170, 200, 100);
         panelCentral.add(telefonoText);
 
+        txtActTelefono.setBackground(Color.white);
+        // txTelefono.setBackground(new Color(217,217,217));
+        txtActTelefono.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActTelefono.setBounds(640, 200, 220, 40);
+        panelCentral.add(txtActTelefono);
+
         JLabel direccionText = new JLabel("DIRECCIÓN: ");
         direccionText.setBackground(Color.black);
         direccionText.setFont(new Font("Arial", Font.BOLD, 20));
         direccionText.setBounds(480, 220, 200, 100);
         panelCentral.add(direccionText);
 
+        txtActDireccion.setBackground(Color.white);
+        txtActDireccion.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActDireccion.setBounds(640, 250, 220, 40);
+        panelCentral.add(txtActDireccion);
+
         JLabel tipoText = new JLabel("TIPO: ");
         tipoText.setBackground(Color.black);
         tipoText.setFont(new Font("Arial", Font.BOLD, 20));
         tipoText.setBounds(480, 270, 200, 100);
         panelCentral.add(tipoText);
+
+        txtActTipo.setBackground(Color.white);
+        txtActTipo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActTipo.setBounds(640, 300, 220, 40);
+        panelCentral.add(txtActTipo);
 
 
         String nombre=ingresarNombre();
@@ -432,6 +493,11 @@ public class VistaOperadorDatos extends JFrame {
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
                 VistaOperador vistaMenu=new VistaOperador();
                 vistaMenu.panelOperador();
                 dispose();
@@ -483,6 +549,12 @@ public class VistaOperadorDatos extends JFrame {
         letreroIngreso.setFont(new Font("Arial", Font.BOLD, 40));
         letreroIngreso.setBounds(500, 150, 600, 200);
 
+        Color colorPanel=new Color(234,234,234);
+        txtbusquedaPedido.setBackground(colorPanel);
+        txtbusquedaPedido.setFont(new Font("Arial", Font.BOLD, 30));
+        txtbusquedaPedido.setBounds(350, 60, 500, 60);
+        panelCentral.add(txtbusquedaPedido);
+
         String buscar=buscarPedido();
         String producto=ingresarProducto();
         String cantidad=ingresarCantidad();
@@ -494,17 +566,32 @@ public class VistaOperadorDatos extends JFrame {
         productoText.setBounds(370, 190, 200, 100);
         panelCentral.add(productoText);
 
+        txtActProducto.setBackground(new Color(234,234,234));
+        txtActProducto.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActProducto.setBounds(500, 210, 400, 50);
+        panelCentral.add(txtActProducto);
+
         JLabel tamañoText = new JLabel("CÓDIGO: ");
         tamañoText.setBackground(Color.black);
         tamañoText.setFont(new Font("Arial", Font.BOLD, 20));
         tamañoText.setBounds(370, 260, 200, 100);
         panelCentral.add(tamañoText);
 
+        txtActCodigo.setBackground(new Color(234,234,234));
+        txtActCodigo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActCodigo.setBounds(500, 280, 400, 50);
+        panelCentral.add(txtActCodigo);
+
         JLabel cantidadText = new JLabel("CANTIDAD: ");
         cantidadText.setBackground(Color.black);
         cantidadText.setFont(new Font("Arial", Font.BOLD, 20));
         cantidadText.setBounds(370, 330, 200, 100);
         panelCentral.add(cantidadText);
+
+        txtActCantidad.setBackground(new Color(234,234,234));
+        txtActCantidad.setFont(new Font("Arial", Font.BOLD, 20));
+        txtActCantidad.setBounds(500, 350, 400, 50);
+        panelCentral.add(txtActCantidad);
 
         JButton botonBuscar=new JButton();
         botonBuscar=new JButton();//boton para buscar cliente
@@ -523,7 +610,14 @@ public class VistaOperadorDatos extends JFrame {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                try {
+                    controlador.busquedaPedido(txtbusquedaPedido.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
                 panelCompletar.setVisible(true);
+
             }
         });
 
@@ -545,6 +639,11 @@ public class VistaOperadorDatos extends JFrame {
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.actualizarPedido(txtActProducto.getText(),txtActCodigo.getText(),txtActCantidad.getText());
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
                 VistaOperador vistaMenu=new VistaOperador();
                 vistaMenu.panelOperador();
                 dispose();
@@ -552,7 +651,7 @@ public class VistaOperadorDatos extends JFrame {
         });
         panelCentral.add(botonIngresar);
 
-        contenedor.add(txbuscarPedido,Integer.valueOf(2));
+        contenedor.add(txtbusquedaPedido,Integer.valueOf(2));
         contenedor.add(panelFrecuentes,Integer.valueOf(4));
         contenedor.add(logo,Integer.valueOf(3));
         contenedor.add(letreroIngreso,Integer.valueOf(3));
