@@ -14,7 +14,7 @@ public class VistaOperadorDatos extends JFrame {
     /*
     Datos de registro de cliente y actulizacion, ingreso y actulizacion del pedido
      */
-     Controlador controlador=new Controlador();
+    Controlador controlador=new Controlador();
     JPanel panelCentral =new JPanel();
     JPanel panelFrecuentes=new JPanel();
     JPanel panelCompletar=new JPanel();

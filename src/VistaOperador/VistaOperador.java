@@ -1,9 +1,8 @@
 package VistaOperador;
 
+
 import ControladorOperador.Controlador;
 import Estructuras.Colas.ColasArray;
-import com.sun.tools.javac.Main;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,8 +20,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 
 public class VistaOperador extends JFrame {
     /*
@@ -172,7 +169,7 @@ public class VistaOperador extends JFrame {
                 }
             });
         }else{
-            JOptionPane.showInputDialog("NO ES POSIBLE ACCEDER- ERROR DE USUARIO Y/0 CONTRASEÑA");
+            //JOptionPane.showInputDialog("NO ES POSIBLE ACCEDER- ERROR DE USUARIO Y/0 CONTRASEÑA");
         }
 
     }
@@ -238,7 +235,6 @@ public class VistaOperador extends JFrame {
                 try {
                     controlador.busquedaCliente(txbuscarCliente.getText());
                     controlador.clienteExistente(txbuscarCliente.getText());
-                    controlador.pedidosFrecuentesCliente(txbuscarCliente.getText());
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
