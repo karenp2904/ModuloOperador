@@ -672,18 +672,33 @@ public class VistaOperador extends JFrame {
     public void setPedidosCliente(ColasArray pedidosFrecuentes){
         int y=50;//se define la altura
 
-        JLabel titulo=new JLabel(pedidosFrecuentes.dequeue().toString()+ pedidosFrecuentes.dequeue().toString()+ pedidosFrecuentes.dequeue().toString());
-        titulo.setBackground(Color.black);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
-        titulo.setBounds(100,y,600,100);
-        panelPedido.add(titulo);
-        y+=40;//se le agrega distancia a y para la ubicacion del texto
-        //otorga espacios
-        JLabel espacio=new JLabel();
-        espacio.setBackground(Color.white);
-        espacio.setFont(new Font("Arial", Font.BOLD, 20));
-        espacio.setBounds(100,y+10,600,100);
-        panelPedido.add(espacio);
+        while(pedidosFrecuentes.size()!=0) {
+            JLabel titulo = new JLabel(pedidosFrecuentes.dequeue().toString());
+            titulo.setBackground(Color.black);
+            titulo.setFont(new Font("Arial", Font.BOLD, 20));
+            titulo.setBounds(100, y, 600, 100);
+            panelPedido.add(titulo);
+
+            JLabel producCantidad = new JLabel(pedidosFrecuentes.dequeue().toString());
+            producCantidad.setBackground(Color.black);
+            producCantidad.setFont(new Font("Arial", Font.BOLD, 20));
+            producCantidad.setBounds(320, y, 600, 100);
+            panelPedido.add(producCantidad);
+
+            JLabel prodCodigo = new JLabel(pedidosFrecuentes.dequeue().toString());
+            prodCodigo.setBackground(Color.black);
+            prodCodigo.setFont(new Font("Arial", Font.BOLD, 20));
+            prodCodigo.setBounds(450, y, 600, 100);
+            panelPedido.add(prodCodigo);
+
+            y += 40;//se le agrega distancia a y para la ubicacion del texto
+            //otorga espacios
+            JLabel espacio = new JLabel();
+            espacio.setBackground(Color.white);
+            espacio.setFont(new Font("Arial", Font.BOLD, 20));
+            espacio.setBounds(100, y + 10, 600, 100);
+            panelPedido.add(espacio);
+        }
 
     }
 
