@@ -254,7 +254,7 @@ public class VistaOperador extends JFrame {
         contenedor.add(botonBuscCliente,Integer.valueOf(13));
         contenedor();
 
-        elegirPanelSiClienteExiste(true);
+        //elegirPanelSiClienteExiste(true);
 
 
     }

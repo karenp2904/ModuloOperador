@@ -49,7 +49,7 @@ public class Main implements Serializable {
             vistaOperador.setTelefonoCliente(cola.dequeue().toString());
             vistaOperador.setTipoCliente(cola.dequeue().toString());
             //segun el numero de telefono registrado se muestran los pedidos frecuentes del cliente
-            //vistaOperador.setPedidosCliente(client.pedidosFrecuentesCliente(controlador.clienteABuscar()));
+            vistaOperador.setPedidosCliente(client.pedidosFrecuentesCliente(controlador.clienteABuscar()));
 
 
             client.registrarCliente(cliente.getNombreCliente(), cliente.getDireccionCliente(), cliente.getTelefono(),  cliente.getTipoCuenta());
@@ -58,14 +58,14 @@ public class Main implements Serializable {
             client.actualizarPedido(pedido.getProductoNombre(),pedido.getCodigo(), pedido.getCantidad());
 
             //para buscar un pedido
-            //vistaOperadorDatos.mostrarPedidosEncontrados(client.busquedaPedido(controlador.pedidoABuscar()));// se muestran los pedidos encontrados en la barra de busqueda
+            vistaOperadorDatos.mostrarPedidosEncontrados(client.busquedaPedido(controlador.pedidoABuscar()));// se muestran los pedidos encontrados en la barra de busqueda
 
             //para la validacion del login
             vistaOperador.accederLogin(client.validarUsuario(usuario.getId(), usuario.getContraseña())); // se valida el login
 
             ////vistaOperador.accederLogin(true);
             //para verificar si hay que registrar el usuario o se muestran los datos porque ya existe
-           // vistaOperador.elegirPanelSiClienteExiste(client.clienteExistente(controlador.clienteABuscar()));//se busca al cliente si existe o no, segun su telefono y se notifica a la vista
+            vistaOperador.elegirPanelSiClienteExiste(client.clienteExistente(controlador.clienteABuscar()));//se busca al cliente si existe o no, segun su telefono y se notifica a la vista
             //vistaOperador.elegirPanelSiClienteExiste(client.clienteExistente(controlador.clienteABuscar()));//se busca al cliente si existe o no, segun su telefono y se notifica a la vista
 
 
