@@ -65,6 +65,7 @@ public class VistaPrincipalOpera extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 VistaOperador JframeOperador=new VistaOperador();//se llama a la ventana del operador
+                JframeOperador.setVisible(true);
                 JframeOperador.panelLogin();//metodo para el registro
                 dispose();//se cierra la ventana
 

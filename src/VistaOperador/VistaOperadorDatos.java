@@ -16,7 +16,7 @@ public class VistaOperadorDatos extends JFrame {
     Datos de registro de cliente y actulizacion, ingreso y actulizacion del pedido
      */
     Controlador controlador=new Controlador();
-    VistaOperador vistaOperador=new VistaOperador();
+    VistaOperador vistaOperador;
     JPanel panelCentral =new JPanel();
     JPanel panelFrecuentes=new JPanel();
     JPanel panelCompletar=new JPanel();
@@ -49,7 +49,7 @@ public class VistaOperadorDatos extends JFrame {
         this.setTitle("Hot Dogs Palace");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
+        this.setVisible(false);
         this.setBackground(Color.white);
         contenedor();
     }
@@ -147,6 +147,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
+                vistaOperador=new VistaOperador();
                 vistaOperador.panelOperador();
                 dispose();
             }
@@ -499,6 +500,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
+                vistaOperador=new VistaOperador();
                vistaOperador.panelOperador();
                 dispose();
             }
@@ -644,6 +646,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
+                vistaOperador=new VistaOperador();
                 vistaOperador.panelOperador();
                 dispose();
             }

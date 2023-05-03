@@ -33,7 +33,6 @@ public class VistaOperador extends JFrame {
      */
 
 //
-    VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
     Controlador controlador=new Controlador();
     JLabel fondo = new JLabel();//fondo
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
@@ -60,7 +59,7 @@ public class VistaOperador extends JFrame {
         this.setTitle("Hot Dogs Palace");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
+        this.setVisible(false);
         this.setBackground(Color.white);
     }
 
@@ -130,7 +129,9 @@ public class VistaOperador extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     controlador.validarUsuario(txusuario.getText(),txcontraseña.getText());
+
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -148,7 +149,7 @@ public class VistaOperador extends JFrame {
         this.setSize(imagen.getIconWidth(), imagen.getIconHeight());//tamaño de la imagen ajustado a la ventana
         contenedor();//llama al contenedor
 
-        accederLogin(true);
+        //accederLogin(true);
     }
 
 
@@ -159,6 +160,7 @@ public class VistaOperador extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                    panelComprobarCliente();
+                   panelBusqueda.setVisible(true);
                     panelInicio.setVisible(false);
 
                     contenedor.add(panelBlanco,Integer.valueOf(4));
@@ -290,11 +292,13 @@ public class VistaOperador extends JFrame {
             botonBuscCliente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
+                    vistaOperadorDatos.setVisible(true);
+                    vistaOperadorDatos.panelRegistroCliente();
                     panelBlanco.setVisible(false);
                     botonBuscCliente.setVisible(false);
                     fondo.setVisible(false);
                     txbuscarCliente.getText();
-                    vistaOperadorDatos.panelRegistroCliente();
                     dispose();
                 }
             });
@@ -401,6 +405,7 @@ public class VistaOperador extends JFrame {
             
                 panelPedido.setVisible(false);
                 VistaOperadorDatos ventanaDatos=new VistaOperadorDatos();
+                ventanaDatos.setVisible(true);
                 ventanaDatos.panelRegistroCliente();
                 dispose();
             }
@@ -424,6 +429,7 @@ public class VistaOperador extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 VistaOperadorDatos ventanaDatos=new VistaOperadorDatos();
+                ventanaDatos.setVisible(true);
                 ventanaDatos.panelIngresarPedido();
                 dispose();
             }
