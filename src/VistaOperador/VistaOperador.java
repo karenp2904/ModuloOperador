@@ -33,6 +33,7 @@ public class VistaOperador extends JFrame {
      */
 
 //
+    VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
     Controlador controlador=new Controlador();
     JLabel fondo = new JLabel();//fondo
     JLayeredPane contenedor=new JLayeredPane();//contenedor de capas en la ventana
@@ -246,12 +247,10 @@ public class VistaOperador extends JFrame {
         fondo.setIcon(imagen);
         fondo.setSize(imagen.getIconWidth(), imagen.getIconHeight());
 
-
-        contenedor();
         contenedor.add(panelFondo,Integer.valueOf(4));
         contenedor.add(panelBusqueda,Integer.valueOf(12));
         contenedor.add(botonBuscCliente,Integer.valueOf(13));
-
+        contenedor();
 
         elegirPanelSiClienteExiste(true);
 
@@ -295,7 +294,6 @@ public class VistaOperador extends JFrame {
                     botonBuscCliente.setVisible(false);
                     fondo.setVisible(false);
                     txbuscarCliente.getText();
-                    VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
                     vistaOperadorDatos.panelRegistroCliente();
                     dispose();
                 }
@@ -479,7 +477,7 @@ public class VistaOperador extends JFrame {
         panelBlanco.add(botonActDatos);
 
 
-      informacionCliente();
+      //informacionCliente();
       contenedor();
         contenedor.add(panelBlanco,Integer.valueOf(6));
         contenedor.add(panelPedido,Integer.valueOf(7));
@@ -585,6 +583,7 @@ public class VistaOperador extends JFrame {
 
     //contenedor de capas
     public void contenedor(){
+
         //  contenedor.add(panelInicio,Integer.valueOf(2));
 
         this.getContentPane().add(contenedor);

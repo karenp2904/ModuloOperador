@@ -41,13 +41,7 @@ public class Main implements Serializable {
 
             //Aqui se conectan los datos que otorga la barra de busqueda del cliente por numero de telefono
             ColasArray cola=new ColasArray();
-            //cola=client.busquedaCliente(cliente.getTelefono());
-            cola.enqueue(pedido);
-            cola.enqueue(pedido);
-            cola.enqueue(pedido);
-            cola.enqueue(pedido);
-            cola.enqueue(pedido);
-
+            cola=client.busquedaCliente(cliente.getTelefono());
 
             //aparece en la vista los datos del cliente
             vistaOperador.setNombreCliente(cola.dequeue().toString());
@@ -56,7 +50,6 @@ public class Main implements Serializable {
             vistaOperador.setTipoCliente(cola.dequeue().toString());
             //segun el numero de telefono registrado se muestran los pedidos frecuentes del cliente
             //vistaOperador.setPedidosCliente(client.pedidosFrecuentesCliente(controlador.clienteABuscar()));
-
 
 
             client.registrarCliente(cliente.getNombreCliente(), cliente.getDireccionCliente(), cliente.getTelefono(),  cliente.getTipoCuenta());

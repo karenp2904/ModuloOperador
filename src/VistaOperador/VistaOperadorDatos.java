@@ -16,6 +16,7 @@ public class VistaOperadorDatos extends JFrame {
     Datos de registro de cliente y actulizacion, ingreso y actulizacion del pedido
      */
     Controlador controlador=new Controlador();
+    VistaOperador vistaOperador=new VistaOperador();
     JPanel panelCentral =new JPanel();
     JPanel panelFrecuentes=new JPanel();
     JPanel panelCompletar=new JPanel();
@@ -146,8 +147,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-                VistaOperador vistaMenu=new VistaOperador();
-                vistaMenu.panelOperador();
+                vistaOperador.panelOperador();
                 dispose();
             }
         });
@@ -318,8 +318,8 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-                VistaOperador vistaMenu=new VistaOperador();
-                vistaMenu.panelOperador();
+                vistaOperador=new VistaOperador();
+                vistaOperador.panelOperador();
                 dispose();
             }
         });
@@ -499,8 +499,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-                VistaOperador vistaMenu=new VistaOperador();
-                vistaMenu.panelOperador();
+               vistaOperador.panelOperador();
                 dispose();
             }
         });
@@ -645,8 +644,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
-                VistaOperador vistaMenu=new VistaOperador();
-                vistaMenu.panelOperador();
+                vistaOperador.panelOperador();
                 dispose();
             }
         });
