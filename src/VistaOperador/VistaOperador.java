@@ -1,6 +1,7 @@
 package VistaOperador;
 
 
+import ControladorOperador.ClienteOperador;
 import ControladorOperador.Controlador;
 import Estructuras.Colas.ColasArray;
 import java.awt.event.ActionEvent;
@@ -9,17 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Properties;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class VistaOperador extends JFrame {
     /*
@@ -44,8 +42,8 @@ public class VistaOperador extends JFrame {
     JPanel panelPedido = new JPanel();
     JPanel panelInformacion = new JPanel();
     JTextField txbuscarCliente =new JTextField();
-    JButton botonBuscar;
-    JButton botonBuscCliente;
+    JButton botonBuscar=new JButton();
+    JButton  botonBuscCliente=new JButton();//boton para buscar cliente
 
     JButton botonRegistrar=new JButton();
     JButton botonIngresar=new JButton();
@@ -128,14 +126,34 @@ public class VistaOperador extends JFrame {
         botonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Properties properties = new Properties();
                 try {
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
 
-                    controlador.validarUsuario(txusuario.getText(),txcontraseña.getText());
+                    boolean valido=client.validarUsuario(txusuario.getText(),txcontraseña.getText());
+                    if(valido){
+                        panelComprobarCliente();
+                        panelBusqueda.setVisible(true);
+                        panelInicio.setVisible(false);
+                        contenedor.add(panelBlanco,Integer.valueOf(4));
+                        contenedor.add(fondo,Integer.valueOf(5));
+                        contenedor.add(panelBusqueda,Integer.valueOf(8));
+                        contenedor.add(botonBuscCliente,Integer.valueOf(9));
+                    }else{
+                        JOptionPane.showInputDialog("INTENTO INCORRECTO");
+                    }
 
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-
             }
         });
 
@@ -218,7 +236,7 @@ public class VistaOperador extends JFrame {
         txbuscarCliente.setBounds(60, 150, 600, 60);
         panelBusqueda.add(txbuscarCliente);
 
-        botonBuscCliente=new JButton();//boton para buscar cliente
+
         botonBuscCliente.setVisible(true);
         botonBuscCliente.setBounds(600, 400, 150, 80);
         ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
@@ -235,10 +253,67 @@ public class VistaOperador extends JFrame {
         botonBuscCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
-                    controlador.busquedaCliente(txbuscarCliente.getText());
-                    controlador.clienteExistente(txbuscarCliente.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    boolean valido=client.clienteExistente(txbuscarCliente.getText());
+
+                    if(valido){
+                        try {
+                            ColasArray datosCliente=client.busquedaCliente(txbuscarCliente.getText());
+                            setNombreCliente(datosCliente.dequeue().toString());
+                            setDireccionCliente(datosCliente.dequeue().toString());
+                            setTelefonoCliente(datosCliente.dequeue().toString());
+                            setTipoCliente(datosCliente.dequeue().toString());
+                            ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText());
+                            setPedidosCliente(pedidoCliente);
+
+
+                            panelOperador();
+                            panelBusqueda.setVisible(false);
+                            panelPedido.setVisible(true);
+                            panelInformacion.setVisible(true);
+                            panelPedido.setVisible(true);
+                            botonBuscCliente.setVisible(false);
+                            panelBlanco.setVisible(true);
+                            panelFondo.setVisible(false);
+                            fondo.setVisible(false);
+
+                            txbuscarCliente.getText();
+                            contenedor.add(panelBlanco,Integer.valueOf(7));
+                            contenedor.add(panelPedido,Integer.valueOf(10));
+                            contenedor.add(panelInformacion,Integer.valueOf(9));
+                            contenedor.add(botonBuscar,Integer.valueOf(9));
+
+
+                        } catch (RemoteException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    else{
+                        VistaOperadorDatos vistaOperadorDatos=new VistaOperadorDatos();
+                        vistaOperadorDatos.setVisible(true);
+                        vistaOperadorDatos.panelRegistroCliente();
+                        panelBlanco.setVisible(false);
+                        botonBuscCliente.setVisible(false);
+                        fondo.setVisible(false);
+                        dispose();
+                    }
+
+
                 } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
@@ -264,28 +339,54 @@ public class VistaOperador extends JFrame {
         String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
         return telefonoCliente;//se retorna el numero telefonico
     }
-
+/*
     public void elegirPanelSiClienteExiste(Boolean existe){
         if(existe){
             botonBuscCliente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    panelOperador();
-                    panelBusqueda.setVisible(false);
-                    panelPedido.setVisible(true);
-                    panelInformacion.setVisible(true);
-                    panelPedido.setVisible(true);
-                    botonBuscCliente.setVisible(false);
-                    panelBlanco.setVisible(true);
-                    panelFondo.setVisible(false);
-                    fondo.setVisible(false);
 
-                    txbuscarCliente.getText();
-                    contenedor.add(panelBlanco,Integer.valueOf(7));
-                    contenedor.add(panelPedido,Integer.valueOf(10));
-                    contenedor.add(panelInformacion,Integer.valueOf(9));
-                    contenedor.add(botonBuscar,Integer.valueOf(9));
+                    try {
+                        Properties properties = new Properties();
+                        properties.load(new FileInputStream(new File("src/client.properties")));
+                        ClienteOperador client = new ClienteOperador(
+                                (String) properties.get("IP"),
+                                (String) properties.get("PORTS"),
+                                (String) properties.get("SERVICES"));
 
+                        ColasArray datosCliente=client.busquedaCliente(txbuscarCliente.getText());
+                        setNombreCliente(datosCliente.dequeue().toString());
+                        setDireccionCliente(datosCliente.dequeue().toString());
+                        setTelefonoCliente(datosCliente.dequeue().toString());
+                        setTipoCliente(datosCliente.dequeue().toString());
+                        ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText());
+                        setPedidosCliente(pedidoCliente);
+
+
+                        panelOperador();
+                        panelBusqueda.setVisible(false);
+                        panelPedido.setVisible(true);
+                        panelInformacion.setVisible(true);
+                        panelPedido.setVisible(true);
+                        botonBuscCliente.setVisible(false);
+                        panelBlanco.setVisible(true);
+                        panelFondo.setVisible(false);
+                        fondo.setVisible(false);
+
+                        txbuscarCliente.getText();
+                        contenedor.add(panelBlanco,Integer.valueOf(7));
+                        contenedor.add(panelPedido,Integer.valueOf(10));
+                        contenedor.add(panelInformacion,Integer.valueOf(9));
+                        contenedor.add(botonBuscar,Integer.valueOf(9));
+
+
+                    } catch (RemoteException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             });
         }else{
@@ -298,7 +399,6 @@ public class VistaOperador extends JFrame {
                     panelBlanco.setVisible(false);
                     botonBuscCliente.setVisible(false);
                     fondo.setVisible(false);
-                    txbuscarCliente.getText();
                     dispose();
                 }
             });
@@ -307,6 +407,8 @@ public class VistaOperador extends JFrame {
     }
 
 
+
+ */
     //panel donde se busca al cliente
     public void panelOperador(){
         //Panel que tendrá las etiquetas y botones
@@ -351,7 +453,6 @@ public class VistaOperador extends JFrame {
         fondoCliente.setIcon(ilogo);
         panelInformacion.add(fondoCliente);
 
-        botonBuscar=new JButton();//boton para buscar cliente
         botonBuscar.setBounds(1050, 40, 150, 80);
         ImageIcon imgBus= new ImageIcon("src/Imagenes/botonBuscar.png");// se le pone icono a boton
         Icon ibus= new ImageIcon(imgBus.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_DEFAULT));
@@ -570,20 +671,20 @@ public class VistaOperador extends JFrame {
     //metodo para editan los pedidos frecuentes del cliente
     public void setPedidosCliente(ColasArray pedidosFrecuentes){
         int y=50;//se define la altura
-        while(pedidosFrecuentes.size()==0) {
-            JLabel titulo=new JLabel(pedidosFrecuentes.dequeue().toString());
-            titulo.setBackground(Color.black);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            titulo.setBounds(100,y,600,100);
-            panelPedido.add(titulo);
-            y+=40;//se le agrega distancia a y para la ubicacion del texto
-            //otorga espacios
-            JLabel espacio=new JLabel();
-            espacio.setBackground(Color.white);
-            espacio.setFont(new Font("Arial", Font.BOLD, 20));
-            espacio.setBounds(100,y+10,600,100);
-            panelPedido.add(espacio);
-        }
+
+        JLabel titulo=new JLabel(pedidosFrecuentes.dequeue().toString()+ pedidosFrecuentes.dequeue().toString()+ pedidosFrecuentes.dequeue().toString());
+        titulo.setBackground(Color.black);
+        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.setBounds(100,y,600,100);
+        panelPedido.add(titulo);
+        y+=40;//se le agrega distancia a y para la ubicacion del texto
+        //otorga espacios
+        JLabel espacio=new JLabel();
+        espacio.setBackground(Color.white);
+        espacio.setFont(new Font("Arial", Font.BOLD, 20));
+        espacio.setBounds(100,y+10,600,100);
+        panelPedido.add(espacio);
+
     }
 
 

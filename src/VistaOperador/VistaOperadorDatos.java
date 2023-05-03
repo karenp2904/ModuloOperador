@@ -1,5 +1,6 @@
 package VistaOperador;
 
+import ControladorOperador.ClienteOperador;
 import ControladorOperador.Controlador;
 import Dominio.Cliente;
 import Estructuras.Colas.ColasArray;
@@ -8,7 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Properties;
 
 public class VistaOperadorDatos extends JFrame {
 
@@ -143,8 +149,20 @@ public class VistaOperadorDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controlador.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    client.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+
                 } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 vistaOperador=new VistaOperador();
@@ -289,8 +307,19 @@ public class VistaOperadorDatos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 panelCompletar.setVisible(true);
                 try {
-                    controlador.busquedaPedido(txtbusquedaPedido.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    mostrarPedidosEncontrados(client.busquedaPedido(txtbusquedaPedido.getText()));
                 } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
@@ -315,13 +344,26 @@ public class VistaOperadorDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controlador.ingresarPedido(txtIngreProducto.getText(),txtIngrCodigo.getText(),txtIngrCantidad.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                   boolean ingresado= client.ingresarPedido(txtIngreProducto.getText(),txtIngrCodigo.getText(),txtIngrCantidad.getText());
+
+                    vistaOperador=new VistaOperador();
+                    vistaOperador.panelOperador();
+                    dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-                vistaOperador=new VistaOperador();
-                vistaOperador.panelOperador();
-                dispose();
+
             }
         });
         panelCentral.add(botonIngresar);
@@ -496,13 +538,25 @@ public class VistaOperadorDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controlador.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    client.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
+                    vistaOperador=new VistaOperador();
+                    vistaOperador.panelOperador();
+                    dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-                vistaOperador=new VistaOperador();
-               vistaOperador.panelOperador();
-                dispose();
+
             }
         });
         panelCentral.add(botonIngresar);
@@ -612,13 +666,23 @@ public class VistaOperadorDatos extends JFrame {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                panelCompletar.setVisible(true);
                 try {
-                    controlador.busquedaPedido(txtbusquedaPedido.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    mostrarPedidosEncontrados(client.busquedaPedido(txtbusquedaPedido.getText()));
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-                panelCompletar.setVisible(true);
 
             }
         });
@@ -642,13 +706,25 @@ public class VistaOperadorDatos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controlador.actualizarPedido(txtActProducto.getText(),txtActCodigo.getText(),txtActCantidad.getText());
+                    Properties properties = new Properties();
+                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    ClienteOperador client = new ClienteOperador(
+                            (String) properties.get("IP"),
+                            (String) properties.get("PORTS"),
+                            (String) properties.get("SERVICES"));
+
+                    boolean ingresado= client.actualizarPedido(txtActProducto.getText(),txtActCodigo.getText(),txtActCantidad.getText());
+
+                    vistaOperador=new VistaOperador();
+                    vistaOperador.panelOperador();
+                    dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-                vistaOperador=new VistaOperador();
-                vistaOperador.panelOperador();
-                dispose();
             }
         });
         panelCentral.add(botonIngresar);
