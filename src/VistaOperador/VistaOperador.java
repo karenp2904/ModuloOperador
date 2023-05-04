@@ -273,6 +273,7 @@ public class VistaOperador extends JFrame {
                             setTipoCliente(datosCliente.dequeue().toString());
                             ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText());
                             setPedidosCliente(pedidoCliente);
+                            txbuscarCliente.setText(txbuscarCliente.getText());
 
 
                             panelOperador();
@@ -307,8 +308,6 @@ public class VistaOperador extends JFrame {
                         fondo.setVisible(false);
                         dispose();
                     }
-
-
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 } catch (FileNotFoundException ex) {
@@ -335,11 +334,10 @@ public class VistaOperador extends JFrame {
     }
 
     public String buscarClienteAntes(){
-
         String telefonoCliente= txbuscarCliente.getText();//se obtiene el telefono
         return telefonoCliente;//se retorna el numero telefonico
     }
-/*
+
     public void elegirPanelSiClienteExiste(Boolean existe){
         if(existe){
             botonBuscCliente.addActionListener(new ActionListener() {
@@ -406,9 +404,6 @@ public class VistaOperador extends JFrame {
 
     }
 
-
-
- */
     //panel donde se busca al cliente
     public void panelOperador(){
         //Panel que tendrá las etiquetas y botones

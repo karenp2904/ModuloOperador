@@ -22,7 +22,7 @@ public class VistaOperadorDatos extends JFrame {
     Datos de registro de cliente y actulizacion, ingreso y actulizacion del pedido
      */
     Controlador controlador=new Controlador();
-    VistaOperador vistaOperador;
+
     JPanel panelCentral =new JPanel();
     JPanel panelFrecuentes=new JPanel();
     JPanel panelCompletar=new JPanel();
@@ -156,7 +156,23 @@ public class VistaOperadorDatos extends JFrame {
                             (String) properties.get("PORTS"),
                             (String) properties.get("SERVICES"));
 
-                    client.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+                    boolean registrado=client.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+
+                    VistaOperador vistaOperador=new VistaOperador();
+                    vistaOperador.setVisible(true);
+                    vistaOperador.panelOperador();
+                    dispose()
+                    /*
+                    ColasArray datosCliente=client.busquedaCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setNombreCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setDireccionCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTelefonoCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTipoCliente(datosCliente.dequeue().toString());
+                    ColasArray pedidoCliente=client.pedidosFrecuentesCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setPedidosCliente(pedidoCliente);
+
+                     */
+                  ;
 
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
@@ -165,9 +181,7 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                vistaOperador=new VistaOperador();
-                vistaOperador.panelOperador();
-                dispose();
+
             }
         });
         panelCentral.add(botonIngresar);
@@ -214,7 +228,7 @@ public class VistaOperadorDatos extends JFrame {
         panelCompletar.setLayout(null);
         panelCompletar.setVisible(false);
         panelCompletar.setOpaque(true);
-        panelCompletar.setBounds(350, 130, 500, 50);
+        panelCompletar.setBounds(350, 130, 500, 100);
         panelCompletar.setBackground(Color.lightGray);
 
         panelFrecuentes.setLayout(null);
@@ -353,7 +367,8 @@ public class VistaOperadorDatos extends JFrame {
 
                    boolean ingresado= client.ingresarPedido(txtIngreProducto.getText(),txtIngrCodigo.getText(),txtIngrCantidad.getText());
 
-                    vistaOperador=new VistaOperador();
+                    VistaOperador vistaOperador=new VistaOperador();
+                    vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
                     dispose();
                 } catch (RemoteException ex) {
@@ -545,9 +560,21 @@ public class VistaOperadorDatos extends JFrame {
                             (String) properties.get("PORTS"),
                             (String) properties.get("SERVICES"));
 
-                    client.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
-                    vistaOperador=new VistaOperador();
+                    boolean ingresado= client.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
+
+                    VistaOperador vistaOperador=new VistaOperador();
+                    vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
+                    /*
+                    ColasArray datosCliente=client.busquedaCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setNombreCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setDireccionCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTelefonoCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTipoCliente(datosCliente.dequeue().toString());
+                    ColasArray pedidoCliente=client.pedidosFrecuentesCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setPedidosCliente(pedidoCliente);
+
+                     */
                     dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
@@ -556,7 +583,6 @@ public class VistaOperadorDatos extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
             }
         });
         panelCentral.add(botonIngresar);
@@ -714,9 +740,10 @@ public class VistaOperadorDatos extends JFrame {
                             (String) properties.get("SERVICES"));
 
                     boolean ingresado= client.actualizarPedido(txtActProducto.getText(),txtActCodigo.getText(),txtActCantidad.getText());
-
-                    vistaOperador=new VistaOperador();
+                    VistaOperador vistaOperador=new VistaOperador();
+                    vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
+
                     dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
