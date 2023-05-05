@@ -51,6 +51,8 @@ public class VistaOperadorDatos extends JFrame {
     JTextField txtbusquedaPedido = new JTextField();
     JTextField txbusquedaCliente = new JTextField();
 
+    VistaOperador vistaOperador;
+
     public VistaOperadorDatos(){
         this.setTitle("Hot Dogs Palace");
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -158,7 +160,7 @@ public class VistaOperadorDatos extends JFrame {
 
                     boolean registrado=client.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
 
-                    VistaOperador vistaOperador=new VistaOperador();
+                    vistaOperador=new VistaOperador();
                     vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
                     dispose()
@@ -367,7 +369,7 @@ public class VistaOperadorDatos extends JFrame {
 
                    boolean ingresado= client.ingresarPedido(txtIngreProducto.getText(),txtIngrCodigo.getText(),txtIngrCantidad.getText());
 
-                    VistaOperador vistaOperador=new VistaOperador();
+                     vistaOperador=new VistaOperador();
                     vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
                     dispose();
@@ -561,11 +563,7 @@ public class VistaOperadorDatos extends JFrame {
                             (String) properties.get("SERVICES"));
 
                     boolean ingresado= client.actualizarCliente(txtActNombre.getText(),txtActDireccion.getText(),txtActTelefono.getText(),txtActTipo.getText());
-
-                    VistaOperador vistaOperador=new VistaOperador();
-                    vistaOperador.setVisible(true);
-                    vistaOperador.panelOperador();
-                    /*
+ /*
                     ColasArray datosCliente=client.busquedaCliente(vistaOperador.txbuscarCliente.getText());
                     vistaOperador.setNombreCliente(datosCliente.dequeue().toString());
                     vistaOperador.setDireccionCliente(datosCliente.dequeue().toString());
@@ -575,6 +573,10 @@ public class VistaOperadorDatos extends JFrame {
                     vistaOperador.setPedidosCliente(pedidoCliente);
 
                      */
+                    System.out.println("ventana de prueba");
+                    vistaOperador=new VistaOperador();
+                    vistaOperador.setVisible(true);
+                    vistaOperador.panelOperador();
                     dispose();
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
@@ -740,7 +742,28 @@ public class VistaOperadorDatos extends JFrame {
                             (String) properties.get("SERVICES"));
 
                     boolean ingresado= client.actualizarPedido(txtActProducto.getText(),txtActCodigo.getText(),txtActCantidad.getText());
-                    VistaOperador vistaOperador=new VistaOperador();
+                    /*
+                    ColasArray datosCliente=client.busquedaCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setNombreCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setDireccionCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTelefonoCliente(datosCliente.dequeue().toString());
+                    vistaOperador.setTipoCliente(datosCliente.dequeue().toString());
+                    ColasArray pedidoCliente=client.pedidosFrecuentesCliente(vistaOperador.txbuscarCliente.getText());
+                    vistaOperador.setPedidosCliente(pedidoCliente);
+
+                     */
+                    if(ingresado){
+                        vistaOperador=new VistaOperador();
+                        vistaOperador.setVisible(true);
+                        vistaOperador.panelOperador();
+                    }else{
+                        vistaOperador=new VistaOperador();
+                        vistaOperador.setVisible(true);
+                        vistaOperador.panelOperador();
+                    }
+                    System.out.println("ventana de prueba");
+
+                    vistaOperador=new VistaOperador();
                     vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
 
