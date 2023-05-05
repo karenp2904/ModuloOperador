@@ -13,6 +13,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.ConnectException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
@@ -152,14 +156,19 @@ public class VistaOperadorDatos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
                             (String) properties.get("SERVICES"));
 
-                    boolean registrado=client.registrarCliente(txtRegistroNombre.getText(),txtRegistroDireccion.getText(),txtRegistroTelefono.getText(),txtRegistroTipo.getText());
+                    //
+                        boolean registrado = client.registrarCliente(txtRegistroNombre.getText(), txtRegistroDireccion.getText(), txtRegistroTelefono.getText(), txtRegistroTipo.getText());
+                        // obtener una referencia al objeto remoto
 
+
+
+                    // realizar operaciones con el objeto remoto
                     vistaOperador=new VistaOperador();
                     vistaOperador.setVisible(true);
                     vistaOperador.panelOperador();
@@ -230,7 +239,7 @@ public class VistaOperadorDatos extends JFrame {
         panelCompletar.setLayout(null);
         panelCompletar.setVisible(false);
         panelCompletar.setOpaque(true);
-        panelCompletar.setBounds(350, 130, 500, 100);
+        panelCompletar.setBounds(350, 130, 500,200);
         panelCompletar.setBackground(Color.lightGray);
 
         panelFrecuentes.setLayout(null);
@@ -321,16 +330,17 @@ public class VistaOperadorDatos extends JFrame {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelCompletar.setVisible(true);
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
                             (String) properties.get("SERVICES"));
 
                     mostrarPedidosEncontrados(client.busquedaPedido(txtbusquedaPedido.getText()));
+                    panelCompletar.setVisible(true);
+
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 } catch (FileNotFoundException ex) {
@@ -361,7 +371,7 @@ public class VistaOperadorDatos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -408,14 +418,14 @@ public class VistaOperadorDatos extends JFrame {
     //metodo para segun el pedido de la barra de busqueda se muestren los parecidos
     public void mostrarPedidosEncontrados(ColasArray pedidosEncontrados){
         //letrero del registro de clinetes en el panel
-        int y=10;//se define la altura
-        while(pedidosEncontrados.size()==0) {
+        int y=0;//se define la altura
+        while(pedidosEncontrados.size()!=0) {
             JLabel titulo=new JLabel(pedidosEncontrados.dequeue().toString());
             titulo.setBackground(Color.black);
-            titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            titulo.setBounds(50,y,600,100);
+            titulo.setFont(new Font("Arial", Font.BOLD, 10));
+            titulo.setBounds(10,y,600,100);
             panelCompletar.add(titulo);
-            y+=40;//se le agrega distancia a y para la ubicacion del texto
+            y+=20;//se le agrega distancia a y para la ubicacion del texto
 
         }
     }
@@ -556,7 +566,7 @@ public class VistaOperadorDatos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -573,6 +583,16 @@ public class VistaOperadorDatos extends JFrame {
                     vistaOperador.setPedidosCliente(pedidoCliente);
 
                      */
+                    int contador=10;
+                    while(contador!=0){
+                        contador--;
+
+                        if(contador==0){
+                            vistaOperador=new VistaOperador();
+                            vistaOperador.setVisible(true);
+                            vistaOperador.panelOperador();
+                        }
+                    }
                     System.out.println("ventana de prueba");
                     vistaOperador=new VistaOperador();
                     vistaOperador.setVisible(true);
@@ -697,7 +717,7 @@ public class VistaOperadorDatos extends JFrame {
                 panelCompletar.setVisible(true);
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -735,7 +755,7 @@ public class VistaOperadorDatos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -752,6 +772,16 @@ public class VistaOperadorDatos extends JFrame {
                     vistaOperador.setPedidosCliente(pedidoCliente);
 
                      */
+                    int contador=10;
+                    while(contador!=0){
+                        contador--;
+
+                        if(contador==0){
+                            vistaOperador=new VistaOperador();
+                            vistaOperador.setVisible(true);
+                            vistaOperador.panelOperador();
+                        }
+                    }
                     if(ingresado){
                         vistaOperador=new VistaOperador();
                         vistaOperador.setVisible(true);

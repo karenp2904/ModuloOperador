@@ -128,7 +128,7 @@ public class VistaOperador extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Properties properties = new Properties();
                 try {
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -256,7 +256,7 @@ public class VistaOperador extends JFrame {
 
                 try {
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("src/client.properties")));
+                    properties.load(new FileInputStream(new File("client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -346,7 +346,7 @@ public class VistaOperador extends JFrame {
 
                     try {
                         Properties properties = new Properties();
-                        properties.load(new FileInputStream(new File("src/client.properties")));
+                        properties.load(new FileInputStream(new File("client.properties")));
                         ClienteOperador client = new ClienteOperador(
                                 (String) properties.get("IP"),
                                 (String) properties.get("PORTS"),
