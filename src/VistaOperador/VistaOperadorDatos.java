@@ -578,7 +578,7 @@ public class VistaOperadorDatos extends JFrame {
 
 
                     Properties properties = new Properties();
-                    properties.load(new FileInputStream(new File("client.properties")));
+                    properties.load(new FileInputStream(new File("src/client.properties")));
                     ClienteOperador client = new ClienteOperador(
                             (String) properties.get("IP"),
                             (String) properties.get("PORTS"),
@@ -663,7 +663,7 @@ public class VistaOperadorDatos extends JFrame {
 
         txtActBusquedaPedido.setBackground(colorPanel);
         txtActBusquedaPedido.setFont(new Font("Arial", Font.BOLD, 30));
-        txtActBusquedaPedido.setBounds(350, 60, 400, 60);
+        txtActBusquedaPedido.setBounds(150, -20, 400, 60);
         panelCentral.add(txtActBusquedaPedido);
 
         String buscar=buscarPedido();
