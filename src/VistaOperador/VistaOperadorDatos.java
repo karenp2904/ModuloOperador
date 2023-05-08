@@ -273,9 +273,10 @@ public class VistaOperadorDatos extends JFrame {
         letreroIngreso.setBounds(500, 150, 600, 200);
 
         Color colorPanel=new Color(234,234,234);
+
         txtbusquedaPedido.setBackground(colorPanel);
         txtbusquedaPedido.setFont(new Font("Arial", Font.BOLD, 30));
-        txtbusquedaPedido.setBounds(350, 60, 500, 60);
+        txtbusquedaPedido.setBounds(350, 60, 400, 60);
         panelCentral.add(txtbusquedaPedido);
 
         String buscar=buscarPedido();
@@ -428,10 +429,10 @@ public class VistaOperadorDatos extends JFrame {
         while(pedidosEncontrados.size()!=0) {
             JLabel titulo=new JLabel(pedidosEncontrados.dequeue().toString());
             titulo.setBackground(Color.black);
-            titulo.setFont(new Font("Arial", Font.BOLD, 10));
+            titulo.setFont(new Font("Arial", Font.BOLD, 30));
             titulo.setBounds(10,k,300,50);
             panelCompletar.add(titulo);
-            k+=20;//se le agrega distancia a y para la ubicacion del texto
+            k+=40;//se le agrega distancia a y para la ubicacion del texto
 
         }
     }
@@ -627,7 +628,7 @@ public class VistaOperadorDatos extends JFrame {
         panelCompletar.setLayout(null);
         panelCompletar.setVisible(false);
         panelCompletar.setOpaque(true);
-        panelCompletar.setBounds(350, 130, 500, 50);
+        panelCompletar.setBounds(350, 130, 500, 100);
         panelCompletar.setBackground(Color.lightGray);
 
         panelFrecuentes.setLayout(null);
@@ -662,7 +663,7 @@ public class VistaOperadorDatos extends JFrame {
 
         txtActBusquedaPedido.setBackground(colorPanel);
         txtActBusquedaPedido.setFont(new Font("Arial", Font.BOLD, 30));
-        txtActBusquedaPedido.setBounds(350, 60, 500, 60);
+        txtActBusquedaPedido.setBounds(350, 60, 400, 60);
         panelCentral.add(txtActBusquedaPedido);
 
         String buscar=buscarPedido();
