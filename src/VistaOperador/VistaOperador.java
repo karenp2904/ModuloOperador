@@ -222,7 +222,6 @@ public class VistaOperador extends JFrame {
         panelBusqueda.setBounds(300, 150, 700, 400);
         panelBusqueda.setBackground(Color.white);
 
-        String cliente= buscarClienteAntes();
 
         JLabel operadorText = new JLabel("BUSCAR CLIENTE");
         operadorText.setBackground(Color.black);
@@ -270,27 +269,20 @@ public class VistaOperador extends JFrame {
                             setDireccionCliente(datosCliente.dequeue().toString());
                             setTelefonoCliente(datosCliente.dequeue().toString());
                             setTipoCliente(datosCliente.dequeue().toString());
-                            ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText());
+                            System.out.println(txbuscarCliente.getX());
+                            System.out.println( "numero"+txbuscarCliente.getText()
+                            //        + pedidoCliente.print()
+                            );
+                            ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText().toString());
+                            pedidoCliente.print();
                             setPedidosCliente(pedidoCliente);
-                            txbuscarCliente.setText(txbuscarCliente.getText());
 
-
-                            panelOperador();
                             panelBusqueda.setVisible(false);
-                            panelPedido.setVisible(true);
-                            panelInformacion.setVisible(true);
-                            panelPedido.setVisible(true);
                             botonBuscCliente.setVisible(false);
-                            panelBlanco.setVisible(true);
                             panelFondo.setVisible(false);
                             fondo.setVisible(false);
 
-                            txbuscarCliente.getText();
-                            contenedor.add(panelBlanco,Integer.valueOf(7));
-                            contenedor.add(panelPedido,Integer.valueOf(10));
-                            contenedor.add(panelInformacion,Integer.valueOf(9));
-                            contenedor.add(botonBuscar,Integer.valueOf(9));
-
+                            panelOperador();
 
                         } catch (RemoteException ex) {
                             throw new RuntimeException(ex);
@@ -352,15 +344,6 @@ public class VistaOperador extends JFrame {
                                 (String) properties.get("IP"),
                                 (String) properties.get("PORTS"),
                                 (String) properties.get("SERVICES"));
-
-                        ColasArray datosCliente=client.busquedaCliente(txbuscarCliente.getText());
-                        setNombreCliente(datosCliente.dequeue().toString());
-                        setDireccionCliente(datosCliente.dequeue().toString());
-                        setTelefonoCliente(datosCliente.dequeue().toString());
-                        setTipoCliente(datosCliente.dequeue().toString());
-                        ColasArray pedidoCliente=client.pedidosFrecuentesCliente(txbuscarCliente.getText());
-                        setPedidosCliente(pedidoCliente);
-
 
                         panelOperador();
                         panelBusqueda.setVisible(false);
@@ -461,11 +444,10 @@ public class VistaOperador extends JFrame {
         botonBuscar.setRolloverIcon(ibus2);
         botonBuscar.setBackground(Color.white);
 
-
+        panelBlanco.add(botonBuscar);
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 panelComprobarCliente();
                 panelInformacion.setVisible(false);
                 panelPedido.setVisible(false);
@@ -476,12 +458,14 @@ public class VistaOperador extends JFrame {
                 panelFondo.setVisible(true);
                 fondo.setVisible(true);
 
-                contenedor.add(panelFondo,Integer.valueOf(11));
+                contenedor.add(fondo,Integer.valueOf(9));
                 contenedor.add(panelBusqueda,Integer.valueOf(12));
                 contenedor.add(botonBuscCliente,Integer.valueOf(13));
+
+
             }
         });
-        panelBlanco.add(botonBuscar);
+
 
 
         botonRegistrar.setBounds(300, 600, 200, 100);
@@ -584,10 +568,11 @@ public class VistaOperador extends JFrame {
 
       //informacionCliente();
       contenedor();
-        contenedor.add(panelBlanco,Integer.valueOf(6));
-        contenedor.add(panelPedido,Integer.valueOf(7));
-        contenedor.add(panelInformacion,Integer.valueOf(7));
-        contenedor.add(botonBuscar,Integer.valueOf(7));
+        contenedor.add(panelBlanco,Integer.valueOf(8));
+        contenedor.add(panelPedido,Integer.valueOf(9));
+        contenedor.add(panelInformacion,Integer.valueOf(9));
+        contenedor.add(botonBuscar,Integer.valueOf(9));
+
     }
 
     //metodo en donde se da la informacion del cliente
@@ -668,26 +653,14 @@ public class VistaOperador extends JFrame {
 
     //metodo para editan los pedidos frecuentes del cliente
     public void setPedidosCliente(ColasArray pedidosFrecuentes){
-        int y=50;//se define la altura
+        int y=80;//se define la altura
 
-        while(pedidosFrecuentes.size()!=0 || pedidosFrecuentes!=null) {
+        while(pedidosFrecuentes.size()!=0 ) {
             JLabel titulo = new JLabel(pedidosFrecuentes.dequeue().toString());
             titulo.setBackground(Color.black);
             titulo.setFont(new Font("Arial", Font.BOLD, 20));
-            titulo.setBounds(100, y, 600, 100);
+            titulo.setBounds(130, y, 600, 100);
             panelPedido.add(titulo);
-
-            JLabel producCantidad = new JLabel(pedidosFrecuentes.dequeue().toString());
-            producCantidad.setBackground(Color.black);
-            producCantidad.setFont(new Font("Arial", Font.BOLD, 20));
-            producCantidad.setBounds(320, y, 600, 100);
-            panelPedido.add(producCantidad);
-
-            JLabel prodCodigo = new JLabel(pedidosFrecuentes.dequeue().toString());
-            prodCodigo.setBackground(Color.black);
-            prodCodigo.setFont(new Font("Arial", Font.BOLD, 20));
-            prodCodigo.setBounds(450, y, 600, 100);
-            panelPedido.add(prodCodigo);
 
             y += 40;//se le agrega distancia a y para la ubicacion del texto
             //otorga espacios
